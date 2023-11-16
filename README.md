@@ -1,2 +1,2 @@
 # ADVENTURE
-A définir
+Un jeu d'aventures, pour un aventurier

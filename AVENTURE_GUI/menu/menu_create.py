@@ -48,22 +48,17 @@ class MenuCreate:
                         if len(self.text) > 0:
                             self.text = self.text[:-1]
                             self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
+                    elif event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+                        
                     else:
                         if hasattr(event, 'unicode'):
                             self.text = self.text + event.unicode
                             self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
-                            print("oui")
                 return
                 
-            print(self.text)
     
-
-
-
-
-
-
-
             if self.back_rect.collidepoint(pygame.mouse.get_pos()):
                 self.back_surface = self.back_font.render('< Back', True, (0,0,0))
                 if pygame.mouse.get_pressed() == (1,0,0):

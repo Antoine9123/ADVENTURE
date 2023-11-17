@@ -10,7 +10,7 @@ from menu.menu_delete import MenuDelete
 if __name__ == "__main__":
 
     SCREENWIDTH, SCREENHEIGHT = 1280,720
-    FPS = 30
+    FPS = 144
 
     class Game:
         def __init__(self):
@@ -18,8 +18,8 @@ if __name__ == "__main__":
             self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
             pygame.display.set_caption("Adventure Game")
 
-            #icon = pygame.image.load("img/icone.jpg")
-            #pygame.display.set_icon(icon)
+            icon = pygame.image.load("img/icone.jpg")
+            pygame.display.set_icon(icon)
 
             self.clock = pygame.time.Clock()
 

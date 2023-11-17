@@ -38,8 +38,9 @@ class MenuCreate:
     def run(self):
         while True:
             for event in pygame.event.get():
-                if event.type == event.KEYDOWN:
+                if event.type == pygame.KEYDOWN:
                     print("oui")
+                return
 
 
 
@@ -59,5 +60,5 @@ class MenuCreate:
             self.display.blit(self.back_surface, self.back_rect)
             self.display.blit(self.submenu_surface, self.submenu_rect)
             #self.display.blit(self.text_surface, self.text_rect)
-            return
+           
 

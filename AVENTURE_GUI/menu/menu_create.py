@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 class MenuCreate:
     def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT):
@@ -7,8 +8,12 @@ class MenuCreate:
         self.SCREENWIDTH = SCREENWIDTH
         self.SCREENHEIGHT = SCREENHEIGHT
 
+        self.text = "Hellow"
+
         self.load_background()
         self.load_menu()
+
+        
 
 
     def load_menu(self):
@@ -20,8 +25,8 @@ class MenuCreate:
         self.back_rect = self.back_surface.get_rect(topleft=(80, 650))
 
 
-        #self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
-        #self.text_rect = self.back_surface.get_rect(topleft=(200, 200))
+        self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
+        self.text_rect = self.back_surface.get_rect(topleft=(200, 200))
 
 
         self.submenu_surface = pygame.Surface((1100,450))
@@ -39,8 +44,20 @@ class MenuCreate:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    print("oui")
+                    if event.key == pygame.K_BACKSPACE:
+                        if len(self.text) > 0:
+                            self.text = self.text[:-1]
+                            self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
+                    else:
+                        if hasattr(event, 'unicode'):
+                            self.text = self.text + event.unicode
+                            self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
+                            print("oui")
                 return
+                
+            print(self.text)
+    
+
 
 
 
@@ -59,6 +76,6 @@ class MenuCreate:
             self.display.blit(self.title_surface, (50, 50))
             self.display.blit(self.back_surface, self.back_rect)
             self.display.blit(self.submenu_surface, self.submenu_rect)
-            #self.display.blit(self.text_surface, self.text_rect)
+            self.display.blit(self.text_surface, self.text_rect)
            
 

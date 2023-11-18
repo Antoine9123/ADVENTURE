@@ -1,5 +1,7 @@
-import pygame
 import sys
+
+import pygame
+import pygame_gui
 
 from menu.menu_start import MenuStart
 from menu.menu_create import MenuCreate
@@ -11,6 +13,7 @@ if __name__ == "__main__":
 
     SCREENWIDTH, SCREENHEIGHT = 1280,720
     FPS = 144
+    MANAGER = pygame_gui.UIManager((SCREENWIDTH, SCREENHEIGHT))
 
     class Game:
         def __init__(self):
@@ -25,7 +28,7 @@ if __name__ == "__main__":
 
             self.gameStateManager = GameStateManager('start')
             self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
-            self.menuCreate = MenuCreate(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
+            self.menuCreate = MenuCreate(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT, MANAGER)
             self.menuSelect = MenuSelect(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
             self.menuDelete = MenuDelete(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
             #self.level = Level(self.screen, self.gameStateManager)
@@ -37,11 +40,13 @@ if __name__ == "__main__":
 
         def run(self):
             while True:
+                UI_REFRESH_RATE = self.clock.tick(60)/1000
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
-
+                    MANAGER.process_events(event)
+                MANAGER.update(UI_REFRESH_RATE)
 
                 self.states[self.gameStateManager.get_state()].run()
 

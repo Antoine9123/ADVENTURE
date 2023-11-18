@@ -1,12 +1,14 @@
 import pygame
-import sys
+import pygame_gui
+
 
 class MenuCreate:
-    def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT):
+    def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT, MANAGER):
         self.display = display
         self.gameStateManager = gameStateManager
         self.SCREENWIDTH = SCREENWIDTH
         self.SCREENHEIGHT = SCREENHEIGHT
+        self.MANAGER = MANAGER
 
         self.text = "Hellow"
 
@@ -41,36 +43,23 @@ class MenuCreate:
 
 
     def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_BACKSPACE:
-                        if len(self.text) > 0:
-                            self.text = self.text[:-1]
-                            self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
-                    elif event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                        
-                    else:
-                        if hasattr(event, 'unicode'):
-                            self.text = self.text + event.unicode
-                            self.text_surface = self.back_font.render(self.text, True, (250, 250, 210))
-                return
+        TEXT_INPUT = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((350,275),(900,50)),manager =  self.MANAGER, object_id = "#main_text_entry")
+        self.MANAGER.draw_ui(self.display)
+        
                 
     
-            if self.back_rect.collidepoint(pygame.mouse.get_pos()):
-                self.back_surface = self.back_font.render('< Back', True, (0,0,0))
-                if pygame.mouse.get_pressed() == (1,0,0):
-                    self.gameStateManager.set_state('start')
-            else:
-                self.back_surface = self.back_font.render('< Back', True, (250, 250, 210))
+        if self.back_rect.collidepoint(pygame.mouse.get_pos()):
+            self.back_surface = self.back_font.render('< Back', True, (0,0,0))
+            if pygame.mouse.get_pressed() == (1,0,0):
+                self.gameStateManager.set_state('start')
+        else:
+            self.back_surface = self.back_font.render('< Back', True, (250, 250, 210))
 
 
-            self.display.blit(self.background, (0, 0))
-            self.display.blit(self.title_surface, (50, 50))
-            self.display.blit(self.back_surface, self.back_rect)
-            self.display.blit(self.submenu_surface, self.submenu_rect)
-            self.display.blit(self.text_surface, self.text_rect)
+        self.display.blit(self.background, (0, 0))
+        self.display.blit(self.title_surface, (50, 50))
+        self.display.blit(self.back_surface, self.back_rect)
+        self.display.blit(self.submenu_surface, self.submenu_rect)
+        self.display.blit(self.text_surface, self.text_rect)
            
 

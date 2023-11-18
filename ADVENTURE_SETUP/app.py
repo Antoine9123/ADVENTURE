@@ -2,11 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 
 ####    Windows     ------------------------------------------------->
+WIDHT, HEIGHT = 700,400
 window = tk.Tk()
 window.title('Character Manager')
-window.geometry('500x700')
+window.geometry(f'{WIDHT}x{HEIGHT}')
+window.overrideredirect(True)
 
-background_path = ""
+bg_image = tk.PhotoImage(file = "ADVENTURE_SETUP/background.png")
+bg_label = tk.Label(window, image=bg_image)
+bg_label.place(relwidth=1, relheight=1) 
 
 ####    Title       ------------------------------------------------->
 title_label = ttk.Label(master=window, text='Adventure Games\n Characters Manager', font = 'Calibri 24 bold')

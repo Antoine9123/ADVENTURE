@@ -24,17 +24,12 @@ class Menu(ttk.Frame):
     def create_widgets(self):
         menu_create = ttk.Button(self, text= "Create")
         menu_select = ttk.Button(self, text= "Select")
-        menu_quit  = ttk.Button(self, text= "Quit", command=self.quit_application)
 
-        self.columnconfigure((0,1,2), weight=1, uniform='a')
+        self.columnconfigure((0,1), weight=1, uniform='a')
         self.rowconfigure((0), weight=1, uniform='a')
 
         menu_create.grid(row=0,column=0, sticky='nswe')
         menu_select.grid(row=0,column=1, sticky='nswe')
-        menu_quit.grid(row=0,column=2, sticky='nswe')
-    
-    def quit_application(self):
-        self.master.destroy()
 
 ####    Start Frame               ---------------------------------------------------------------------------------------->
 class Start(ttk.Frame):
@@ -60,6 +55,26 @@ class Start(ttk.Frame):
     def switch_to_game(self):
         self.master.destroy()
         subprocess.run(["python", "GAME/main.py"])
+
+####    Quit Frame               ---------------------------------------------------------------------------------------->
+class Quit(ttk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.place(x=(WIDHT-80), y=(10),relheight=0.1,relwidth=0.1)
+
+        self.create_widgets()
+    
+    def create_widgets(self):
+        quit_play  = ttk.Button(self, text= "QUIT GAME", command=self.quit_application)
+
+        self.columnconfigure((0), weight=1, uniform='a')
+        self.rowconfigure((0), weight=1, uniform='a')
+
+        quit_play.grid(row=0,column=0, sticky='nswe')
+    
+    def quit_application(self):
+        self.master.destroy()
 
     
 ####    Main Frame               ---------------------------------------------------------------------------------------->

@@ -30,6 +30,7 @@ class App(tk.Tk):
         self.menu = Menu(self)
         self.main = Create(self)
         self.start = Start(self)
+        self.quit = Quit(self)
 
         # Running
         self.mainloop()

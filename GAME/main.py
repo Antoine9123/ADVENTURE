@@ -1,5 +1,4 @@
 import sys
-
 import pygame
 
 from menu.menu_start import MenuStart

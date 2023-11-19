@@ -30,10 +30,9 @@ class App(tk.Tk):
         self.menu = Menu(self)
         self.start = Start(self)
         self.quit = Quit(self)
-        if SCREEN_DISPLAY == "create": 
-            self.main = Create(self)
-        else :
-            self.main = Select(self)
+        #self.main = Create(self)
+        self.main = Main(self)
+       
 
         # Running
         self.mainloop()

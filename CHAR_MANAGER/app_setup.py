@@ -28,9 +28,12 @@ class App(tk.Tk):
 
         # Widgets
         self.menu = Menu(self)
-        self.main = Create(self)
         self.start = Start(self)
         self.quit = Quit(self)
+        if SCREEN_DISPLAY == "create": 
+            self.main = Create(self)
+        else :
+            self.main = Select(self)
 
         # Running
         self.mainloop()

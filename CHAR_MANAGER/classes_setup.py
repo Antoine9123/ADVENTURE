@@ -22,14 +22,20 @@ class Menu(ttk.Frame):
         self.create_widgets()
     
     def create_widgets(self):
-        menu_create = ttk.Button(self, text= "Create")
-        menu_select = ttk.Button(self, text= "Select")
+        menu_create = ttk.Button(self, text= "Create", command=self.switch_create)
+        menu_select = ttk.Button(self, text= "Select", command=self.switch_select)
 
         self.columnconfigure((0,1), weight=1, uniform='a')
         self.rowconfigure((0), weight=1, uniform='a')
 
         menu_create.grid(row=0,column=0, sticky='nswe')
         menu_select.grid(row=0,column=1, sticky='nswe')
+    
+    def switch_create(self):
+        SCREEN_DISPLAY = "create"
+    
+    def switch_select(self):
+        SCREEN_DISPLAY = "select"
 
 ####    Start Frame               ---------------------------------------------------------------------------------------->
 class Start(ttk.Frame):
@@ -78,14 +84,14 @@ class Quit(ttk.Frame):
 
     
 ####    Main Frame               ---------------------------------------------------------------------------------------->
-class Main(ttk.Frame):
+class Select(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         ttk.Label(self, background='blue').pack(expand= True, fill= 'both')
         self.place(x=10, y=90,relheight=0.7,relwidth=0.8)
         
         self.create_widgets()
-    
+        
     def create_widgets(self):
         menu_create = ttk.Button(self)
 
@@ -96,6 +102,8 @@ class Create(ttk.Frame):
         self.place(x=10, y=90,relheight=0.7,relwidth=0.8)
         
         self.create_widgets()
+
+    
     
     def create_widgets(self):
         #### Create Widgets

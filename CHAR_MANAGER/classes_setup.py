@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from globals_setup import *
+from CHAR_MANAGER.globals_setup import *
 
 #### STRUCTURE ####
 #### Menu Frame

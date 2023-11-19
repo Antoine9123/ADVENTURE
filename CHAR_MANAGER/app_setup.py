@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-from globals_setup import *
-from classes_setup import *
+from CHAR_MANAGER.globals_setup import *
+from CHAR_MANAGER.classes_setup import *
 
 class App(tk.Tk):
     def __init__(self):
@@ -31,5 +31,4 @@ class App(tk.Tk):
         # Running
         self.mainloop()
 
-if __name__ == "__main__":
-    App()
+

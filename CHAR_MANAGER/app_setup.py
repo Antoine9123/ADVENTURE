@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+from ttkbootstrap.constants import *
+import ttkbootstrap as tb
 
 from CHAR_MANAGER.globals_setup import *
 from CHAR_MANAGER.classes_setup import *
@@ -7,8 +9,9 @@ from CHAR_MANAGER.classes_setup import *
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
+        tb.Style(theme="superhero")
         self.title('Character Manager')
-        self.overrideredirect(False)
+        self.overrideredirect(True)
 
         # Positionning screen
         screen_width = self.winfo_screenwidth()

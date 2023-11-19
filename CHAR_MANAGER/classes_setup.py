@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-from CHAR_MANAGER.globals_setup import *
 
+from CHAR_MANAGER.globals_setup import *
 #### STRUCTURE ####
 #### Menu Frame
 #### Start Frame
@@ -23,7 +23,7 @@ class Menu(ttk.Frame):
     def create_widgets(self):
         menu_create = ttk.Button(self, text= "Create")
         menu_select = ttk.Button(self, text= "Select")
-        menu_quit  = ttk.Button(self, text= "Quit")
+        menu_quit  = ttk.Button(self, text= "Quit", command=self.quit_application)
 
         self.columnconfigure((0,1,2), weight=1, uniform='a')
         self.rowconfigure((0), weight=1, uniform='a')
@@ -31,6 +31,9 @@ class Menu(ttk.Frame):
         menu_create.grid(row=0,column=0, sticky='nswe')
         menu_select.grid(row=0,column=1, sticky='nswe')
         menu_quit.grid(row=0,column=2, sticky='nswe')
+    
+    def quit_application(self):
+        self.master.destroy()
 
 ####    Start Frame               ---------------------------------------------------------------------------------------->
 class Start(ttk.Frame):

@@ -1,10 +1,10 @@
 import tkinter as tk
-from tkinter import ttk
 from ttkbootstrap.constants import *
 import ttkbootstrap as tb
 
 from CHAR_MANAGER.globals_setup import *
 from CHAR_MANAGER.classes_setup import *
+from CHAR_MANAGER.selected_setup import *
 
 class App(tk.Tk):
     def __init__(self):
@@ -18,7 +18,6 @@ class App(tk.Tk):
         screen_height = self.winfo_screenheight()
         x_coordinate = (screen_width - WIDHT) // 2
         y_coordinate = (screen_height - HEIGHT) // 2
-
         self.geometry(f"{WIDHT}x{HEIGHT}+{x_coordinate}+{y_coordinate}")
 
         # Background
@@ -27,12 +26,11 @@ class App(tk.Tk):
         bg_label.place(relwidth=1, relheight=1)
 
         # Widgets
+        self.main = Main(self)
+        self.selected = Selected(self)
         self.start = Start(self)
         self.quit = Quit(self)
-        self.selected = Selected(self)
-        self.main = Main(self)
-       
-
+        
         # Running
         self.mainloop()
 

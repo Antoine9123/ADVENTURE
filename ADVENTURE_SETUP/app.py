@@ -4,25 +4,78 @@ from tkinter import ttk
 from classes import *
 
 WIDHT, HEIGHT = 900, 550
+def center_window(window, width, height):
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+
+    x_coordinate = (screen_width - width) // 2
+    y_coordinate = (screen_height - height) // 2
+
+    window.geometry(f"{width}x{height}+{x_coordinate}+{y_coordinate}")
 
 def create_character(event):
-    # Function to handle the "Create Character" button click
-    # You can modify the content of the main_frame here
-    main_frame.config(bg="lightblue")
+    main_frame.config(bg="lightgreen")
     main_frame_label.config(text="Creating Character!")
 
+    # Destroy previous widgets in the main_frame, excluding the button frame
+    for widget in main_frame.winfo_children():
+        if widget.winfo_class() != 'TButton':
+            widget.destroy()
+
+    # Create label for general information
+    general_label = tk.Label(main_frame, text="GENERAL INFORMATION", font=button_font)
+    general_label.grid(row=0, column=0, columnspan=2, sticky="w")
+
+    # Create labels and entry widgets for general information
+    name_label = tk.Label(main_frame, text="Name:", font=button_font)
+    name_label.grid(row=1, column=0, sticky="w")
+
+    name_entry = tk.Entry(main_frame, font=button_font, highlightthickness=0)
+    name_entry.grid(row=1, column=1, sticky="w")
+
+    title_label = tk.Label(main_frame, text="Title:", font=button_font)
+    title_label.grid(row=2, column=0, sticky="w")
+
+    title_entry = tk.Entry(main_frame, font=button_font, highlightthickness=0)
+    title_entry.grid(row=2, column=1, sticky="w")
+
+    # Create labels and entry widgets for statistics
+    stats_label = tk.Label(main_frame, text="STATISTICS", font=button_font)
+    stats_label.grid(row=3, column=0, columnspan=2, sticky="w")
+
+    statistics = ["Strength", "Constitution", "Dexterity", "Witness", "Intelligence", "Charisma"]
+
+    for i, stat in enumerate(statistics, start=4):
+        label = tk.Label(main_frame, text=f"{stat}:", font=button_font)
+        label.grid(row=i, column=0, sticky="w")
+
+        entry = tk.Entry(main_frame, font=button_font, highlightthickness=0)
+        entry.grid(row=i, column=1, sticky="w")
+
+    # Create a frame for the buttons within main_frame
+    button_frame = tk.Frame(main_frame)
+    button_frame.grid(row=i + 1, column=0, columnspan=2, sticky="e")
+
+    # Create "Create Character" button
+    button_style = ttk.Style()
+    button_style.configure("Rounded.TButton", borderwidth=2, relief="solid", borderradius=5, font=button_font)
+
+    create_button = ttk.Button(button_frame, text="Create Character", command=submit_character, style="Rounded.TButton", padding=(5, 5))
+    create_button.grid(row=0, column=0, sticky="e")
+
+def submit_character():
+    print("character created")
+    pass
+
 def select_character(event):
-    # Function to handle the "Select Character" button click
-    # You can modify the content of the main_frame here
+
     main_frame.config(bg="lightgreen")
     main_frame_label.config(text="Selecting Character!")
 
 def on_enter(event):
-    # Function to handle mouse entering the button
     event.widget.config(bg="lightcoral")
 
 def on_leave(event):
-    # Function to handle mouse leaving the button
     event.widget.config(bg="lightblue")
 
 # Main Window                 --------------------------------------------------------->
@@ -45,7 +98,7 @@ menu_frame = tk.Frame(window, bg="lightblue", height=300)
 menu_frame.grid(row=0, column=0, sticky="nsew", padx=padding, pady=padding)
 
 # Create the main frame
-main_frame = tk.Frame(window, bg="lightgreen")
+main_frame = tk.Frame(window, bg="lightcoral")
 main_frame.grid(row=0, column=1, columnspan=2, sticky="nsew", padx=padding, pady=padding)
 
 # Create a label in the main_frame to display content
@@ -73,10 +126,6 @@ select_button.bind("<Button-1>", select_character)
 select_button.bind("<Enter>", on_enter)
 select_button.bind("<Leave>", on_leave)
 
-
-
-
-# Explicitly set columnspan for the Quit button
 
 
 # run Loop                      ------------------------------------------------------->

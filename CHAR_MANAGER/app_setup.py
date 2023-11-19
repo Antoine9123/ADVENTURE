@@ -27,10 +27,9 @@ class App(tk.Tk):
         bg_label.place(relwidth=1, relheight=1)
 
         # Widgets
-        self.menu = Menu(self)
         self.start = Start(self)
         self.quit = Quit(self)
-        #self.main = Create(self)
+        self.selected = Selected(self)
         self.main = Main(self)
        
 

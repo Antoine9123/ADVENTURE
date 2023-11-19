@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import font
 from tkinter import ttk
-from classes import *
+
 
 WIDHT, HEIGHT = 900, 550
 def center_window(window, width, height):

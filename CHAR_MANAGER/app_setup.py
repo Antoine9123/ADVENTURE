@@ -25,9 +25,7 @@ class App(tk.Tk):
 
         # Widgets
         self.menu = Menu(self)
-
-        self.main = Main(self)
-
+        self.main = Create(self)
         self.start = Start(self)
 
         # Running

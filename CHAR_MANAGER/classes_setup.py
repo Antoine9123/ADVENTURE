@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import subprocess
 
 
 from CHAR_MANAGER.globals_setup import *
@@ -47,7 +48,7 @@ class Start(ttk.Frame):
     def create_widgets(self):
         start_label = ttk.Label(self, text= "Character :")
         start_name = ttk.Label(self, text= "Char Name")
-        start_play  = ttk.Button(self, text= "Play")
+        start_play  = ttk.Button(self, text= "Play", command=self.switch_to_game)
 
         self.columnconfigure((0,1,2), weight=1, uniform='a')
         self.rowconfigure((0), weight=1, uniform='a')
@@ -55,6 +56,10 @@ class Start(ttk.Frame):
         start_label.grid(row=0,column=0, sticky='nswe')
         start_name.grid(row=0,column=1, sticky='nswe')
         start_play.grid(row=0,column=2, sticky='nswe')
+    
+    def switch_to_game(self):
+        self.master.destroy()
+        subprocess.run(["python", "GAME/main.py"])
 
     
 ####    Main Frame               ---------------------------------------------------------------------------------------->

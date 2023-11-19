@@ -13,8 +13,8 @@ class MenuStart:
 
 
     def load_menu(self):
-        self.title_font = pygame.font.Font('font/MorrisRomanBlack.otf', 90)
-        self.menu_font = pygame.font.Font('font/MorrisRomanBlack.otf', 40)
+        self.title_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 90)
+        self.menu_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 40)
         self.title_surface = self.title_font.render('Adventure Game', True, (250, 250, 210))
 
         self.create_surface = self.menu_font.render('Create Character', True, (250, 250, 210))
@@ -27,7 +27,7 @@ class MenuStart:
         self.delete_rect = self.delete_surface.get_rect(topleft=(80, 300))
 
     def load_background(self):
-        self.background = pygame.image.load('img/menu/background_menu.jpg')
+        self.background = pygame.image.load('GAME/img/menu/background_menu.jpg')
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
 
     def run(self):

@@ -3,12 +3,11 @@ import pygame_gui
 
 
 class MenuCreate:
-    def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT, MANAGER):
+    def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT):
         self.display = display
         self.gameStateManager = gameStateManager
         self.SCREENWIDTH = SCREENWIDTH
         self.SCREENHEIGHT = SCREENHEIGHT
-        self.MANAGER = MANAGER
 
         self.text = "Hellow"
 
@@ -19,8 +18,8 @@ class MenuCreate:
 
 
     def load_menu(self):
-        self.title_font = pygame.font.Font('font/MorrisRomanBlack.otf', 90)
-        self.back_font = pygame.font.Font('font/MorrisRomanBlack.otf', 30)
+        self.title_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 90)
+        self.back_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 30)
         self.title_surface = self.title_font.render('Adventure Game', True, (250, 250, 210))
 
         self.back_surface = self.back_font.render('< Back', True, (250, 250, 210))
@@ -38,13 +37,11 @@ class MenuCreate:
 
 
     def load_background(self):
-        self.background = pygame.image.load('img/menu/background_menu.jpg')
+        self.background = pygame.image.load('GAME/img/menu/background_menu.jpg')
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
 
 
     def run(self):
-        TEXT_INPUT = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((350,275),(900,50)),manager =  self.MANAGER, object_id = "#main_text_entry")
-        self.MANAGER.draw_ui(self.display)
         
                 
     

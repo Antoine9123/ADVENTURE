@@ -1,6 +1,6 @@
 import pygame
 
-class MenuDelete:
+class MenuSelect:
     def __init__(self, display, gameStateManager, SCREENWIDTH, SCREENHEIGHT):
         self.display = display
         self.gameStateManager = gameStateManager
@@ -12,11 +12,11 @@ class MenuDelete:
 
 
     def load_menu(self):
-        self.title_font = pygame.font.Font('font/MorrisRomanBlack.otf', 90)
-        self.back_font = pygame.font.Font('font/MorrisRomanBlack.otf', 30)
+        self.title_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 90)
+        self.back_font = pygame.font.Font('GAME/font/MorrisRomanBlack.otf', 30)
         self.title_surface = self.title_font.render('Adventure Game', True, (250, 250, 210))
 
-        self.back_surface = self.back_font.render('< Back', True, (250, 250, 210))
+        self.back_surface = self.back_font.render('< Backor', True, (250, 250, 210))
         self.back_rect = self.back_surface.get_rect(topleft=(80, 650))
 
 
@@ -24,7 +24,7 @@ class MenuDelete:
 
 
     def load_background(self):
-        self.background = pygame.image.load('img/menu/background_menu.jpg')
+        self.background = pygame.image.load('GAME/img/menu/background_menu.jpg')
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
 
     def run(self):

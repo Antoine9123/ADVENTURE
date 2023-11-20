@@ -1,10 +1,12 @@
 import tkinter as tk
 from ttkbootstrap.constants import *
 import ttkbootstrap as tb
+import pickle
 
 from CHAR_MANAGER.globals_setup import *
 from CHAR_MANAGER.classes_setup import *
 from CHAR_MANAGER.selected_setup import *
+from GAME.character.char_sheet import Personnage
 
 class App(tk.Tk):
     def __init__(self):
@@ -33,5 +35,6 @@ class App(tk.Tk):
         
         # Running
         self.mainloop()
+    
 
 

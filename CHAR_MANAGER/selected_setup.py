@@ -7,6 +7,7 @@ class Selected(ttk.Frame):
         super().__init__(parent)
 
         self.place(x=(350), y=(20),height=324,width=200)
+    
         self.create_widgets()
     
     def create_widgets(self):
@@ -27,6 +28,16 @@ class Selected(ttk.Frame):
         witness_label = tk.Label(selected_main, text="WIT:")
         intelligence_label = tk.Label(selected_main, text="INT:")
         charisma_label = tk.Label(selected_main, text="CHA :")
+
+        name = tk.Label(selected_main, text="self.personnage.nom")
+        title = tk.Label(selected_main, text="self.titre")
+
+        strenght = tk.Label(selected_main, text="self.force")
+        constitution = tk.Label(selected_main, text="test")
+        dexterity = tk.Label(selected_main, text="DEX :")
+        witness = tk.Label(selected_main, text="WIT:")
+        intelligence = tk.Label(selected_main, text="INT:")
+        charisma = tk.Label(selected_main, text="CHA :")
    
         
         #### Create Grid
@@ -46,5 +57,15 @@ class Selected(ttk.Frame):
         witness_label.grid(row=7, column=1, sticky="w")
         intelligence_label.grid(row=8, column=1, sticky="w")
         charisma_label.grid(row=9, column=1, sticky="w")
+
+        name.grid(row=1, column=2, sticky="w")
+        title.grid(row=2, column=2, sticky="w")
+ 
+        strenght.grid(row=4, column=2, sticky="w")
+        constitution.grid(row=5, column=2, sticky="w")
+        dexterity.grid(row=6, column=2, sticky="w")
+        witness.grid(row=7, column=2, sticky="w")
+        intelligence.grid(row=8, column=2, sticky="w")
+        charisma.grid(row=9, column=2, sticky="w")
 
   

@@ -94,22 +94,9 @@ class Create(ttk.Frame):
         statWIT = int(self.witness_entry.get())
         statINT = int(self.intelligence_entry.get())
         statCHA = int(self.charisma_entry.get())
-        char_to_save = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
-        all_characters = {}
-        try:
-            with open("database.pkl", 'rb') as file:
-                all_characters = pickle.load(file)
-        except FileNotFoundError:
-            print("fichier non trouvé")
-        # Utilisation d'un identifiant unique pour chaque personnage
-        char_id = len(all_characters) + 1
-        all_characters[char_id] = char_to_save
-
-        # Sauvegarde de tous les personnages dans le fichier
-        with open("database.pkl", 'wb') as file:
-            pickle.dump(all_characters, file)
-
-        # Sauvegarde de l'identifiant du dernier personnage chargé
-        with open('last_char_id.txt', 'w') as id_file:
-            id_file.write(str(char_id))
+        new_player = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
+        
+        with open(f"GAME/personnage/{new_player.nom}.data", "wb") as fic:
+            record = pickle.Pickler(fic)
+            record.dump(new_player)
         

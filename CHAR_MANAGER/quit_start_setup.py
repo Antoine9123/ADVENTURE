@@ -1,12 +1,13 @@
 from tkinter import ttk
 import subprocess
 
+from CHAR_MANAGER.globals_setup import WIDHT
 from CHAR_MANAGER.create_setup import Create
 from CHAR_MANAGER.continue_setup import Continue
-from CHAR_MANAGER.globals_setup import *
 
 
 ####    Main Frame               ---------------------------------------------------------------------------------------->
+## Contains = tabs
 class Main(ttk.Notebook):
     def __init__(self, parent):
         super().__init__(parent)

@@ -1,12 +1,11 @@
 import tkinter as tk
-from ttkbootstrap.constants import *
 import ttkbootstrap as tb
-import pickle
+from ttkbootstrap.constants import *
 
-from CHAR_MANAGER.globals_setup import *
-from CHAR_MANAGER.classes_setup import *
-from CHAR_MANAGER.selected_setup import *
-from GAME.character.char_sheet import Personnage
+from CHAR_MANAGER.globals_setup import WIDHT, HEIGHT
+from CHAR_MANAGER.quit_start_setup import Main, Quit, Start
+from CHAR_MANAGER.selected_setup import Selected
+
 
 class App(tk.Tk):
     def __init__(self):

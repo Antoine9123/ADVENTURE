@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
-import pickle
-from GAME.character.char_sheet import Personnage
 from ttkbootstrap.dialogs import Messagebox
+import pickle
 import subprocess
+
 from CHAR_MANAGER.globals_setup import MAX_POINT
+from GAME.character.char_sheet import Personnage
 
 
 class Create(ttk.Frame):
@@ -14,7 +15,7 @@ class Create(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        #### Start Button
+        #### Create Button
         save_char  = ttk.Button(self, text= "Create", command=self.save_new_personnage)
         
         #### Create Widgets

@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+import pickle
+import subprocess
 
 
 class Selected(ttk.Frame):
@@ -7,10 +9,11 @@ class Selected(ttk.Frame):
         super().__init__(parent)
 
         self.place(x=(350), y=(20),height=324,width=200)
+
+        self.player = self.open_last()
+        self.create_widgets(self.player)
     
-        self.create_widgets()
-    
-    def create_widgets(self):
+    def create_widgets(self, player):
         start_frame = ttk.Frame(self)
         character_selected_frame = ttk.LabelFrame(start_frame, text="  Character Selected  ")
         selected_main = ttk.Frame(character_selected_frame)
@@ -29,15 +32,15 @@ class Selected(ttk.Frame):
         intelligence_label = tk.Label(selected_main, text="INT:")
         charisma_label = tk.Label(selected_main, text="CHA :")
 
-        name = tk.Label(selected_main, text="self.personnage.nom")
-        title = tk.Label(selected_main, text="self.titre")
+        name = tk.Label(selected_main, text=player.nom)
+        title = tk.Label(selected_main, text=player.titre)
 
-        strenght = tk.Label(selected_main, text="self.force")
-        constitution = tk.Label(selected_main, text="test")
-        dexterity = tk.Label(selected_main, text="DEX :")
-        witness = tk.Label(selected_main, text="WIT:")
-        intelligence = tk.Label(selected_main, text="INT:")
-        charisma = tk.Label(selected_main, text="CHA :")
+        strenght = tk.Label(selected_main, text= player.force)
+        constitution = tk.Label(selected_main, text= player.constitution)
+        dexterity = tk.Label(selected_main, text= player.dexterite)
+        witness = tk.Label(selected_main, text=player.sagesse)
+        intelligence = tk.Label(selected_main, text=player.intelligence)
+        charisma = tk.Label(selected_main, text=player.charisme)
    
         
         #### Create Grid
@@ -67,5 +70,20 @@ class Selected(ttk.Frame):
         witness.grid(row=7, column=2, sticky="w")
         intelligence.grid(row=8, column=2, sticky="w")
         charisma.grid(row=9, column=2, sticky="w")
+
+        refresh_button = ttk.Button(self, text="Refresh", command=self.update_player)
+        refresh_button.pack(side='right', padx=5)
+    
+    def open_last(self):
+        with open(f"GAME/last_char.data", "rb") as fic:
+            get_record = pickle.Unpickler(fic)
+            last_player = get_record.load()
+            return last_player
+    
+    def update_player(self):
+        self.master.destroy()
+        subprocess.run(["python", "LAUNCHER.py"])
+
+
 
   

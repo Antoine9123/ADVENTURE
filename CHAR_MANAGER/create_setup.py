@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import pickle
 from GAME.character.char_sheet import Personnage
+import subprocess
 
 
 class Create(ttk.Frame):
@@ -99,4 +100,11 @@ class Create(ttk.Frame):
         with open(f"GAME/personnage/{new_player.nom}.data", "wb") as fic:
             record = pickle.Pickler(fic)
             record.dump(new_player)
+        
+        with open(f"GAME/last_char.data", "wb") as fic:
+            record = pickle.Pickler(fic)
+            record.dump(new_player)
+        
+        self.master.destroy()
+        subprocess.run(["python", "LAUNCHER.py"])
         

@@ -71,8 +71,6 @@ class Selected(ttk.Frame):
         intelligence.grid(row=8, column=2, sticky="w")
         charisma.grid(row=9, column=2, sticky="w")
 
-        refresh_button = ttk.Button(self, text="Refresh", command=self.update_player)
-        refresh_button.pack(side='right', padx=5)
     
     def open_last(self):
         with open(f"GAME/last_char.data", "rb") as fic:
@@ -80,9 +78,6 @@ class Selected(ttk.Frame):
             last_player = get_record.load()
             return last_player
     
-    def update_player(self):
-        self.master.destroy()
-        subprocess.run(["python", "LAUNCHER.py"])
 
 
 

@@ -87,11 +87,13 @@ class Create(ttk.Frame):
 
     def save_new_personnage(self):
         #### Imposition des conditions
-        checked = True
-        checked = self.check_create()
+        checked_empty = True
+        checked_stat = True
+        checked_empty = self.check_empty() 
+        checked_stat = self.check_create()
 
         # Encodage des stats
-        if checked == True:
+        if checked_stat == True and checked_empty == True:
             name = self.name_entry.get()
             title = self.title_entry.get()
             statSTR = int(self.strenght_entry.get())
@@ -113,36 +115,47 @@ class Create(ttk.Frame):
             self.master.destroy()
             subprocess.run(["python", "LAUNCHER.py"])
 
+    def show_error(self, message):
+        Messagebox.show_info(message, "ERROR")
+        return False
+
     def check_create(self):
-        total_point = int(self.charisma_entry.get())
-        total_point += int(self.intelligence_entry.get())
-        total_point += int(self.witness_entry.get())
-        total_point += int(self.dexterity_entry.get())
-        total_point += int(self.constitution_entry.get())
-        total_point += int(self.strenght_entry.get())
-        if len(self.name_entry.get())>12 or len(self.title_entry.get())>12:
-            Messagebox.show_info("Name or Title should be <12","Error")
-            return False
-        elif 20 < int(self.strenght_entry.get()) <= 0:
-            Messagebox.show_info("Strenght should be between 1 and 20","Error")
-            return False
-        elif 20 < int(self.constitution_entry.get()) <= 0:
-            Messagebox.show_info("Constitution should be between 1 and 20","Error")
-            return False
-        elif 20 < int(self.dexterity_entry.get()) <= 0:
-            Messagebox.show_info("Dexterity should be between 1 and 20","Error")
-            return False
-        elif 20 < int(self.witness_entry.get()) <= 0:
-            Messagebox.show_info("Witness should be between 1 and 20","Error")
-            return False
-        elif 20 < int(self.intelligence_entry.get()) <= 0:
-            Messagebox.show_info("Intelligence should be between 1 and 20","Error")
-            return False
-        elif 20 < int(self.charisma_entry.get()) <= 0:
-            Messagebox.show_info("Charisma should be between 1 and 20","Error")
-            return False
-        elif MAX_POINT < total_point:
-            Messagebox.show_info("You exceed you max amount of point","Error")
-            return False
-        else:
-            return True
+        attributes = {
+            "Strength": int(self.strenght_entry.get()),
+            "Constitution": int(self.constitution_entry.get()),
+            "Dexterity": int(self.dexterity_entry.get()),
+            "Witness": int(self.witness_entry.get()),
+            "Intelligence": int(self.intelligence_entry.get()),
+            "Charisma": int(self.charisma_entry.get()),
+        }
+
+        name_length = len(self.name_entry.get())
+        title_length = len(self.title_entry.get())
+        total_point = sum(attributes.values())
+
+        if name_length > 12 or title_length > 12:
+            return self.show_error("Name or Title should be < 12")
+
+        for attribute, value in attributes.items():
+            if value <= 0 or value > 20:
+                return self.show_error(f"{attribute} should be between 1 and 20")
+
+        if total_point > MAX_POINT:
+            return self.show_error("You exceed your max amount of points")
+
+        return True
+    
+    def check_empty(self):
+        entries = {
+            "Strength": self.strength_entry.get(),
+            "Constitution": self.constitution_entry.get(),
+            "Dexterity": self.dexterity_entry.get(),
+            "Witness": self.witness_entry.get(),
+            "Intelligence": self.intelligence_entry.get(),
+            "Charisma": self.charisma_entry.get(),
+            "Name": self.name_entry.get(),
+            "Title": self.title_entry.get(),
+            }
+
+        if any(value == "" for value in entries.values()):
+            return self.show_error("Please fill in all fields")

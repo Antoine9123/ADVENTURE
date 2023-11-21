@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import pickle
 from GAME.character.char_sheet import Personnage
+from ttkbootstrap.dialogs import Messagebox
 import subprocess
+from CHAR_MANAGER.globals_setup import MAX_POINT
 
 
 class Create(ttk.Frame):
@@ -11,13 +13,10 @@ class Create(ttk.Frame):
         self.place(x=10, y=90,relheight=0.7,relwidth=0.8) 
         self.create_widgets()
 
-
-
     def create_widgets(self):
         #### Start Button
         save_char  = ttk.Button(self, text= "Create", command=self.save_new_personnage)
         
-
         #### Create Widgets
         self.general_label = tk.Label(self, text="GENERAL INFORMATION")    
         
@@ -87,24 +86,63 @@ class Create(ttk.Frame):
         save_char.grid(row=10,column=2, sticky='nswe')
 
     def save_new_personnage(self):
-        name = self.name_entry.get()
-        title = self.title_entry.get()
-        statSTR = int(self.strenght_entry.get())
-        statCON = int(self.constitution_entry.get())
-        statDEX = int(self.dexterity_entry.get())
-        statWIT = int(self.witness_entry.get())
-        statINT = int(self.intelligence_entry.get())
-        statCHA = int(self.charisma_entry.get())
-        new_player = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
-        
-        with open(f"GAME/personnage/{new_player.nom}.data", "wb") as fic:
-            record = pickle.Pickler(fic)
-            record.dump(new_player)
-        
-        with open(f"GAME/last_char.data", "wb") as fic:
-            record = pickle.Pickler(fic)
-            record.dump(new_player)
-        
-        self.master.destroy()
-        subprocess.run(["python", "LAUNCHER.py"])
-        
+        #### Imposition des conditions
+        checked = True
+        checked = self.check_create()
+
+        # Encodage des stats
+        if checked == True:
+            name = self.name_entry.get()
+            title = self.title_entry.get()
+            statSTR = int(self.strenght_entry.get())
+            statCON = int(self.constitution_entry.get())
+            statDEX = int(self.dexterity_entry.get())
+            statWIT = int(self.witness_entry.get())
+            statINT = int(self.intelligence_entry.get())
+            statCHA = int(self.charisma_entry.get())
+            new_player = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
+            
+            with open(f"GAME/personnage/{new_player.nom}.data", "wb") as fic:
+                record = pickle.Pickler(fic)
+                record.dump(new_player)
+            
+            with open(f"GAME/last_char.data", "wb") as fic:
+                record = pickle.Pickler(fic)
+                record.dump(new_player)
+            
+            self.master.destroy()
+            subprocess.run(["python", "LAUNCHER.py"])
+
+    def check_create(self):
+        total_point = int(self.charisma_entry.get())
+        total_point += int(self.intelligence_entry.get())
+        total_point += int(self.witness_entry.get())
+        total_point += int(self.dexterity_entry.get())
+        total_point += int(self.constitution_entry.get())
+        total_point += int(self.strenght_entry.get())
+        if len(self.name_entry.get())>12 or len(self.title_entry.get())>12:
+            Messagebox.show_info("Name or Title should be <12","Error")
+            return False
+        elif 20 < int(self.strenght_entry.get()) <= 0:
+            Messagebox.show_info("Strenght should be between 1 and 20","Error")
+            return False
+        elif 20 < int(self.constitution_entry.get()) <= 0:
+            Messagebox.show_info("Constitution should be between 1 and 20","Error")
+            return False
+        elif 20 < int(self.dexterity_entry.get()) <= 0:
+            Messagebox.show_info("Dexterity should be between 1 and 20","Error")
+            return False
+        elif 20 < int(self.witness_entry.get()) <= 0:
+            Messagebox.show_info("Witness should be between 1 and 20","Error")
+            return False
+        elif 20 < int(self.intelligence_entry.get()) <= 0:
+            Messagebox.show_info("Intelligence should be between 1 and 20","Error")
+            return False
+        elif 20 < int(self.charisma_entry.get()) <= 0:
+            Messagebox.show_info("Charisma should be between 1 and 20","Error")
+            return False
+        elif MAX_POINT < total_point:
+            Messagebox.show_info("You exceed you max amount of point","Error")
+            return False
+        else:
+            return True

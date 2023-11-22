@@ -11,7 +11,7 @@ from CHAR_MANAGER.continue_setup import Continue
 class Main(ttk.Notebook):
     def __init__(self, parent):
         super().__init__(parent)
-        self.place(x=20, y=20, height=485, width=300)
+        self.place(x=20, y=20, height=250, width=480)
         self.add(Continue(self), text= "Continue")
         self.add(Create(self), text= "New Player")
 
@@ -19,7 +19,7 @@ class Main(ttk.Notebook):
 class Start(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.place(x=(350), y=(360),height=50,width=200)
+        self.place(x=(160), y=(300),height=50,width=200)
         self.create_widgets()
     
     def create_widgets(self):

@@ -4,7 +4,7 @@ from ttkbootstrap.constants import *
 
 from CHAR_MANAGER.globals_setup import WIDHT, HEIGHT
 from CHAR_MANAGER.quit_start_setup import Main, Quit, Start
-from CHAR_MANAGER.selected_setup import Selected
+
 
 
 class App(tk.Tk):
@@ -28,7 +28,6 @@ class App(tk.Tk):
 
         # Widgets
         self.main = Main(self)
-        self.selected = Selected(self)
         self.start = Start(self)
         self.quit = Quit(self)
         

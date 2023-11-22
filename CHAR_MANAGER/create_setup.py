@@ -84,17 +84,15 @@ class Create(ttk.Frame):
         self.charisma_label.grid(row=9, column=1, sticky="w")
         self.charisma_entry.grid(row=9, column=2, sticky="w")
 
-        save_char.grid(row=10,column=2, sticky='nswe')
+        save_char.grid(row=0, rowspan=3, column=2,columnspan=3,  sticky='e')
 
     def save_new_personnage(self):
         #### Imposition des conditions
-        checked_empty = True
         checked_stat = True
-        checked_empty = self.check_empty() 
         checked_stat = self.check_create()
 
         # Encodage des stats
-        if checked_stat == True and checked_empty == True:
+        if checked_stat == True:
             name = self.name_entry.get()
             title = self.title_entry.get()
             statSTR = int(self.strenght_entry.get())
@@ -146,17 +144,3 @@ class Create(ttk.Frame):
 
         return True
     
-    def check_empty(self):
-        entries = {
-            "Strength": self.strength_entry.get(),
-            "Constitution": self.constitution_entry.get(),
-            "Dexterity": self.dexterity_entry.get(),
-            "Witness": self.witness_entry.get(),
-            "Intelligence": self.intelligence_entry.get(),
-            "Charisma": self.charisma_entry.get(),
-            "Name": self.name_entry.get(),
-            "Title": self.title_entry.get(),
-            }
-
-        if any(value == "" for value in entries.values()):
-            return self.show_error("Please fill in all fields")

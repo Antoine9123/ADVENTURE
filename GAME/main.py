@@ -1,10 +1,9 @@
 import sys
 import pygame
+import pickle
 
 from menu.menu_start import MenuStart
-from menu.menu_create import MenuCreate
-from menu.menu_select import MenuSelect
-from menu.menu_delete import MenuDelete
+
 
 
 SCREENWIDTH, SCREENHEIGHT = 1280,720
@@ -23,15 +22,10 @@ class Game:
 
         self.gameStateManager = GameStateManager('start')
         self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
-        self.menuCreate = MenuCreate(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
-        self.menuSelect = MenuSelect(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
-        self.menuDelete = MenuDelete(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
+
         #self.level = Level(self.screen, self.gameStateManager)
 
-        self.states = {'start': self.menuStart,
-                        'create': self.menuCreate,
-                        'select': self.menuSelect,
-                        'delete': self.menuDelete}
+        self.states = {'start': self.menuStart}
 
     def run(self):
         while True:

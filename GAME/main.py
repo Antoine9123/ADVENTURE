@@ -1,4 +1,5 @@
 import pygame
+import pickle
 
 from screen.menu_start import MenuStart
 from screen.fight import Fight

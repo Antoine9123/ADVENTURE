@@ -1,7 +1,7 @@
-from GAME.functions import *
-from GAME.item.weapons import Arme
-from GAME.item.armor import Armure
-from GAME.item.spell import Magie
+from functions import *
+from item.weapons import Arme
+from item.armor import Armure
+from item.spell import Magie
 
 class Personnage:
     def __init__(self, nom, titre, force, constitution, dexterite, sagesse, intelligence, charisme, save) :

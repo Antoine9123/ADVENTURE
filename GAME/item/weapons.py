@@ -1,6 +1,6 @@
 
 
-from GAME.functions import *
+from functions import *
 
 
 class Arme:

@@ -1,3 +1,4 @@
+import pygame
 from time import sleep
 from functions import *
 
@@ -8,6 +9,7 @@ from item.spell import Magie
 class Personnage:
     def __init__(self, nom, titre, force, constitution, dexterite, sagesse, intelligence, charisme, save) :
         #Set de base ----------------------------------------------------->
+        self.clock = pygame.time.Clock()
         self.nom = nom
         self.titre = titre
         self.force = force
@@ -34,19 +36,20 @@ class Personnage:
     def attaquePhysique(self, adversaire, objet):
         jetAttaque = rollDice(20,self.force)
         objet.set_text(f"Vous obtenez un jet d'attaque de {jetAttaque}")
-        # sleep(1)
-        # objet.set_text(f"La classe d'armure de l'adversaire est de {adversaire.classeArmure}")
-        # sleep(1)
-        # objet.set_text("")
-        # if jetAttaque > adversaire.classeArmure:
-        #     jetDegats = rollDice(self.arme.degat,self.force)
-        #     objet.set_text(f"Vous infligez {jetDegats} dégâts")
-        #     adversaire.pointVie -= jetDegats
-        #     sleep(1)
-        # else:
-        #     objet.set_text("Votre attaque n'a pas fait mouche.")
-        #     objet.set_text("")
-        # sleep(1)
+        
+        objet.set_text(f"La classe d'armure de l'adversaire est de {adversaire.classeArmure}")
+        
+        sleep(1)
+        objet.set_text("")
+        if jetAttaque > adversaire.classeArmure:
+            jetDegats = rollDice(self.arme.degat,self.force)
+            #objet.set_text(f"Vous infligez {jetDegats} dégâts")
+            adversaire.pointVie -= jetDegats
+            sleep(1)
+        else:
+            objet.set_text("Votre attaque n'a pas fait mouche.")
+            objet.set_text("")
+        sleep(1)
     
     def attaqueMagique(self, adversaire, magie):
         jetSauvegarde = rollDice(20,adversaire.intelligence)
@@ -66,3 +69,9 @@ class Personnage:
             print("Votre sort n'a pas touché l'adversaire.")
             print("")
         sleep(1)
+    
+    def delay(self,milliseconds):
+        start_time = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - start_time < milliseconds:
+            pygame.event.pump()
+    

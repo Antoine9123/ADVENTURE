@@ -1,3 +1,4 @@
+import pygame
 ##### FONCTION ESPACE
 def espacer(message, tempsTotal, nombre) :
     from time import sleep
@@ -52,6 +53,7 @@ def modificateur(stat):
         modificateurStat = math.floor((stat-10)/2)
         return modificateurStat
     
+
     
             
             

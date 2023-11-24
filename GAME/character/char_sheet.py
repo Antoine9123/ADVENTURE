@@ -27,9 +27,8 @@ class Personnage:
         self.classeArmure = 10 + modificateur(self.constitution)+ self.armure.classArmureBonus
         self.mana = modificateur(self.intelligence)+self.level
 
-        self.magie1 = Magie("Boule de feu",10,1)
-        self.magie2 = Magie("Boule de feu",10,1)
-        self.magie3 = False
+        self.magie = Magie("Boule de feu",10,1)
+
         
         self.inventaire = [[],[],[],[]]
         
@@ -43,24 +42,16 @@ class Personnage:
             objet.set_text("miss")
 
     
-    def attaqueMagique(self, adversaire, magie):
+    def attaqueMagique(self, adversaire, objet):
         jetSauvegarde = rollDice(20,adversaire.intelligence)
         degreDifficulte = 8 + modificateur(self.intelligence)
-        print(f"Le degré de difficulté du sort est de {degreDifficulte}\n")
-        sleep(1)
-        print(f"Le jet de sauvegarde est de {jetSauvegarde}")
-        sleep(1)
-        print("")
         if degreDifficulte >= jetSauvegarde:   
-            jetDegats = rollDice(magie.degat)
-            print(f"{self.nom} {magie.text}")
-            print(f"Vous infligez {jetDegats} dégâts\n\n")
+            jetDegats = rollDice(self.magie.degat)
+            objet.set_text(f"Vous infligez {jetDegats} dégâts")
             adversaire.pointVie -= jetDegats
-            sleep(1)
         else:
-            print("Votre sort n'a pas touché l'adversaire.")
-            print("")
-        sleep(1)
+            objet.set_text("miss")
+
     
     def delay(self,milliseconds):
         start_time = pygame.time.get_ticks()

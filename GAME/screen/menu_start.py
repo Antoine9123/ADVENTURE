@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 
 
@@ -28,8 +29,14 @@ class MenuStart:
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
 
     def run(self):
-
-        
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.gameStateManager.set_state('fight')
+                        
 
         self.display.blit(self.background, (0, 0))
         self.display.blit(self.title_surface, (50, 50))

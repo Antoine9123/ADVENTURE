@@ -1,9 +1,7 @@
-import sys
 import pygame
-import pickle
 
-from menu.menu_start import MenuStart
-
+from screen.menu_start import MenuStart
+from screen.fight import Fight
 
 
 SCREENWIDTH, SCREENHEIGHT = 1280,720
@@ -22,20 +20,13 @@ class Game:
 
         self.gameStateManager = GameStateManager('start')
         self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
+        self.menuFight = Fight(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
 
-        #self.level = Level(self.screen, self.gameStateManager)
 
-        self.states = {'start': self.menuStart}
+        self.states = {'start': self.menuStart, 'fight': self.menuFight}
 
     def run(self):
         while True:
-        
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-
             self.states[self.gameStateManager.get_state()].run()
 
             pygame.display.update()

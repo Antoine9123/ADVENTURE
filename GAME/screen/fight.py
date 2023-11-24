@@ -3,6 +3,7 @@ import sys
 
 from character.char_sheet import Personnage
 from screen.fight_menu import FightMenu
+from screen.fight_text import FightTxt
 
 
 
@@ -25,6 +26,8 @@ class Fight:
         self.turn_counter()
         self.menuFight = FightMenu(self.display, self.turn)
         self.menuFight.display()
+        self.txtFight = FightTxt(self.display)
+        self.txtFight.display()
         
     def load_background(self):
         self.background = pygame.image.load('GAME/img/fight.png')
@@ -37,10 +40,11 @@ class Fight:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()    
+                sys.exit() 
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: 
+                mouse_pos = pygame.mouse.get_pos()
+                self.handle_click(mouse_pos, self.menuFight)   
         
-        
-
         self.display.blit(self.background, (0, 0))
         self.display.blit(self.player_image, (-50,self.SCREENHEIGHT-300))
         self.display.blit(self.ennemy_image, (self.SCREENWIDTH -350,50))
@@ -50,6 +54,7 @@ class Fight:
         self.display.blit(self.mana_ennemy, (650, 90))
         self.display.blit(self.turn_counter, (50, 50))
         self.menuFight.run()
+        self.txtFight.run()
     
     def load_players_screen(self):
         
@@ -61,6 +66,13 @@ class Fight:
         
     def turn_counter(self):
         self.turn_counter = self.font.render(f"C'est au tour de XXX", True, (250,250,210))
+    
+    def handle_click(self, mouse_pos, objet):
+        if objet.atk_rect.collidepoint(mouse_pos):
+            self.player.attaquePhysique(self.ennemy,self.txtFight)
+            self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
+        if objet.mgk_rect.collidepoint(mouse_pos):
+            print("Magie a été cliqué !")
     
         
         

@@ -1,4 +1,6 @@
+from time import sleep
 from functions import *
+
 from item.weapons import Arme
 from item.armor import Armure
 from item.spell import Magie
@@ -28,15 +30,39 @@ class Personnage:
         self.magie3 = False
         
         self.inventaire = [[],[],[],[]]
-
-    def set_attribute():
-        pass
-
-    def get_atttribute():
-        pass
-
-    def save_char():
-        pass
-
-    def load_char():
-        pass
+        
+    def attaquePhysique(self, adversaire, objet):
+        jetAttaque = rollDice(20,self.force)
+        objet.set_text(f"Vous obtenez un jet d'attaque de {jetAttaque}")
+        # sleep(1)
+        # objet.set_text(f"La classe d'armure de l'adversaire est de {adversaire.classeArmure}")
+        # sleep(1)
+        # objet.set_text("")
+        # if jetAttaque > adversaire.classeArmure:
+        #     jetDegats = rollDice(self.arme.degat,self.force)
+        #     objet.set_text(f"Vous infligez {jetDegats} dégâts")
+        #     adversaire.pointVie -= jetDegats
+        #     sleep(1)
+        # else:
+        #     objet.set_text("Votre attaque n'a pas fait mouche.")
+        #     objet.set_text("")
+        # sleep(1)
+    
+    def attaqueMagique(self, adversaire, magie):
+        jetSauvegarde = rollDice(20,adversaire.intelligence)
+        degreDifficulte = 8 + modificateur(self.intelligence)
+        print(f"Le degré de difficulté du sort est de {degreDifficulte}\n")
+        sleep(1)
+        print(f"Le jet de sauvegarde est de {jetSauvegarde}")
+        sleep(1)
+        print("")
+        if degreDifficulte >= jetSauvegarde:   
+            jetDegats = rollDice(magie.degat)
+            print(f"{self.nom} {magie.text}")
+            print(f"Vous infligez {jetDegats} dégâts\n\n")
+            adversaire.pointVie -= jetDegats
+            sleep(1)
+        else:
+            print("Votre sort n'a pas touché l'adversaire.")
+            print("")
+        sleep(1)

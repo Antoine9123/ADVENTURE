@@ -23,6 +23,8 @@ class Fight:
         self.load_background()
         self.load_players_screen()
         self.turn_counter()
+        self.menuFight = FightMenu(self.display, self.turn)
+        self.menuFight.display()
         
     def load_background(self):
         self.background = pygame.image.load('GAME/img/fight.png')
@@ -36,6 +38,8 @@ class Fight:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()    
+        
+        
 
         self.display.blit(self.background, (0, 0))
         self.display.blit(self.player_image, (-50,self.SCREENHEIGHT-300))
@@ -45,6 +49,7 @@ class Fight:
         self.display.blit(self.life_ennemy, (650, 50))
         self.display.blit(self.mana_ennemy, (650, 90))
         self.display.blit(self.turn_counter, (50, 50))
+        self.menuFight.run()
     
     def load_players_screen(self):
         
@@ -57,8 +62,6 @@ class Fight:
     def turn_counter(self):
         self.turn_counter = self.font.render(f"C'est au tour de XXX", True, (250,250,210))
     
-    def menu_fight(self):
-        pass
         
         
     

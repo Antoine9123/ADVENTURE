@@ -19,7 +19,7 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.gameStateManager = GameStateManager('start')
+        self.gameStateManager = GameStateManager('fight')
         self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
         self.menuFight = Fight(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
 

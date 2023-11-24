@@ -7,7 +7,7 @@ class FightTxt:
         self.txt = "FIGHT !!!"
         
     def display(self):
-        self.txt_font = pygame.font.Font(None, 90)
+        self.txt_font = pygame.font.Font(None, 45)
         self.txt_surface = self.txt_font.render(self.txt, True, (0,0,0))
         
     

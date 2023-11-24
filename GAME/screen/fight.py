@@ -16,15 +16,13 @@ class Fight:
         
         self.font = pygame.font.Font(None, 50)
         
-        self.player = Personnage("Efty","Le héros", 20,14,20,20,20,20,10)
+        self.player = Personnage("Efty","Le héros", 10,10,10,10,10,10,10)
         self.ennemy = Personnage("Dragon","L'ancien",10,10,10,10,10,10,1)
         
-        self.turn = True
 
         self.load_background()
         self.load_players_screen()
-        self.turn_counter()
-        self.menuFight = FightMenu(self.display, self.turn)
+        self.menuFight = FightMenu(self.display)
         self.menuFight.display()
         self.txtFight = FightTxt(self.display)
         self.txtFight.display()
@@ -52,7 +50,6 @@ class Fight:
         self.display.blit(self.mana_player, (25, 400))
         self.display.blit(self.life_ennemy, (650, 50))
         self.display.blit(self.mana_ennemy, (650, 90))
-        self.display.blit(self.turn_counter, (50, 50))
         self.menuFight.run()
         self.txtFight.run()
     
@@ -64,8 +61,6 @@ class Fight:
         self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
         self.mana_ennemy = self.font.render(f'Mana :{self.ennemy.mana}', True, (250, 250, 210))
         
-    def turn_counter(self):
-        self.turn_counter = self.font.render(f"C'est au tour de XXX", True, (250,250,210))
     
     def handle_click(self, mouse_pos, objet):
         if objet.atk_rect.collidepoint(mouse_pos):

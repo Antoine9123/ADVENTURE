@@ -2,9 +2,8 @@ import pygame
 
 
 class FightMenu:
-    def __init__(self, parent, turn):
+    def __init__(self, parent):
         self.parent = parent
-        self.turn = turn
         
     def display(self):
         self.menu_font = pygame.font.Font(None, 45)
@@ -24,9 +23,8 @@ class FightMenu:
  
     
     def run(self):
-        if self.turn:
-            self.parent.blit(self.cadre_surface, self.cadre_rect.topleft)
-            self.parent.blit(self.atk_surface, self.atk_rect)
-            self.parent.blit(self.mgk_surface, self.mgk_rect)
+        self.parent.blit(self.cadre_surface, self.cadre_rect.topleft)
+        self.parent.blit(self.atk_surface, self.atk_rect)
+        self.parent.blit(self.mgk_surface, self.mgk_rect)
 
             

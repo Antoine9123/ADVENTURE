@@ -66,6 +66,8 @@ class Fight:
         if objet.atk_rect.collidepoint(mouse_pos):
             self.player.attaquePhysique(self.ennemy,self.txtFight)
             self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
+            self.ennemy.attaquePhysique(self.player,self.txtFight)
+            self.life_player = self.font.render(f'{self.player.nom} - HP :{self.player.pointVie}', True, (250, 250, 210))
         if objet.mgk_rect.collidepoint(mouse_pos):
             print("Magie a été cliqué !")
     

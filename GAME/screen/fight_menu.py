@@ -19,7 +19,7 @@ class FightMenu:
         
         self.cadre_rect = pygame.Rect(390, 570, 220, 90)
         self.cadre_surface = pygame.Surface((self.cadre_rect.width, self.cadre_rect.height), pygame.SRCALPHA)
-        pygame.draw.rect(self.cadre_surface, (250, 250, 210), (0, 0, self.cadre_rect.width, self.cadre_rect.height))
+        pygame.draw.rect(self.cadre_surface, (250, 250, 210,90), (0, 0, self.cadre_rect.width, self.cadre_rect.height))
  
     
     def run(self):

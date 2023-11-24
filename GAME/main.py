@@ -13,13 +13,14 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption("Adventure Game")
+        
 
         #icon = pygame.image.load("img/icone.jpg")
         #pygame.display.set_icon(icon)
 
         self.clock = pygame.time.Clock()
 
-        self.gameStateManager = GameStateManager('fight')
+        self.gameStateManager = GameStateManager('start')
         self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
         self.menuFight = Fight(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
 

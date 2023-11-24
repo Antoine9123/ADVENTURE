@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 import sys
 
 from character.char_sheet import Personnage
@@ -16,8 +17,8 @@ class Fight:
         
         self.font = pygame.font.Font(None, 50)
         
-        self.player = Personnage("Efty","Le héros", 10,10,10,10,10,10,10)
-        self.ennemy = Personnage("Dragon","L'ancien",10,10,10,10,10,10,1)
+        self.player = Personnage("Student Special Forces","Le héros", 18,10,10,10,10,10,10)
+        self.ennemy = Personnage("Python, the Elder Dragon","L'ancien",10,10,10,10,10,10,100)
         
 
         self.load_background()
@@ -27,12 +28,17 @@ class Fight:
         self.txtFight = FightTxt(self.display)
         self.txtFight.display()
         
+        mixer.music.load('GAME/sounds/battle.mp3')
+        #mixer.music.play(-1)
+
+        
     def load_background(self):
         self.background = pygame.image.load('GAME/img/fight.png')
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
         self.player_image = pygame.image.load('GAME/img/fighter.png')
         self.player_image = pygame.transform.scale(self.player_image, (400, 400))
         self.ennemy_image = pygame.image.load('GAME/img/dragon.png')
+        
 
     def run(self): 
         for event in pygame.event.get():
@@ -52,6 +58,7 @@ class Fight:
         self.display.blit(self.mana_ennemy, (650, 90))
         self.menuFight.run()
         self.txtFight.run()
+
     
     def load_players_screen(self):
         

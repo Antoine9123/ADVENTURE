@@ -12,7 +12,7 @@ class Main(ttk.Notebook):
     def __init__(self, parent):
         super().__init__(parent)
         self.place(x=20, y=20, height=250, width=480)
-        self.add(Continue(self), text= "Continue")
+        self.add(Continue(self), text= "Continue") # continue(self) >>> Parent 
         self.add(Create(self), text= "New Player")
 
 ####    Start Frame               ---------------------------------------------------------------------------------------->

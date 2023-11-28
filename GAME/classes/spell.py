@@ -1,7 +1,7 @@
-from functions import *
+from GAME.functions import *
 
 
-class Magie :
+class Spell :
     def __init__(self,nom,degat,cout):
         self.nom = nom
         self.degat = degat

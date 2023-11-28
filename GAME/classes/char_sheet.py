@@ -1,54 +1,52 @@
 import pygame
-from time import sleep
-from functions import *
 
-from item.weapons import Arme
-from item.armor import Armure
-from item.spell import Magie
+from GAME.functions import *
+from GAME.classes.weapons import Weapon
+from GAME.classes.armor import Armor
+from GAME.classes.spell import Spell
 
 class Personnage:
-    def __init__(self, nom, titre, force, constitution, dexterite, sagesse, intelligence, charisme, level) :
+    def __init__(self, name, title, strenght, constitution, dexterity, wisdom, intelligence, charisma, level) :
         #Set de base ----------------------------------------------------->
         self.clock = pygame.time.Clock()
-        self.nom = nom
-        self.titre = titre
-        self.force = force
+        self.name = name
+        self.title = title
+        self.strenght = strenght
         self.constitution = constitution
-        self.dexterite = dexterite
-        self.sagesse = sagesse
+        self.dexterity = dexterity
+        self.wisdom = wisdom
         self.intelligence = intelligence
-        self.charisme = charisme
+        self.charisma = charisma
         self.level = level
 
-        self.arme = Arme("main",6)
-        self.armure = Armure("normal",1)
+        self.weapon = Weapon("hand",6)
+        self.armor = Armor("casual",1)
+        self.spell = Spell("FireBall",10,1)
         
-        self.pointVie = (10*self.level)+ modificateur(self.constitution)
-        self.classeArmure = 10 + modificateur(self.constitution)+ self.armure.classArmureBonus
-        self.mana = modificateur(self.intelligence)+self.level
+        self.healthPoint = (10*self.level)+ modifier(self.constitution)
+        self.armorClass = 10 + modifier(self.constitution)+ self.armor.classArmureBonus
+        self.magicPoint = modifier(self.intelligence)+self.level
 
-        self.magie = Magie("Boule de feu",10,1)
+        
 
         
-        self.inventaire = [[],[],[],[]]
-        
-    def attaquePhysique(self, adversaire, objet):
-        jetAttaque = rollDice(20,self.force)
-        if jetAttaque > adversaire.classeArmure:
-            jetDegats = rollDice(self.arme.degat,self.force)
-            objet.set_text(f"{jetDegats} damage")
-            adversaire.pointVie -= jetDegats
+    def attackDamage(self, ennemy, objet):
+        attackRoll = rollDice(20,self.strenght)
+        if attackRoll > ennemy.classeArmure:
+            damageRoll = rollDice(self.weapon.degat,self.strenght)
+            objet.set_text(f"{damageRoll} damage")
+            ennemy.healthPoint -= damageRoll
         else:
             objet.set_text("miss")
 
     
-    def attaqueMagique(self, adversaire, objet):
-        jetSauvegarde = rollDice(20,adversaire.intelligence)
-        degreDifficulte = 8 + modificateur(self.intelligence)
-        if degreDifficulte >= jetSauvegarde:   
-            jetDegats = rollDice(self.magie.degat)
-            objet.set_text(f"Vous infligez {jetDegats} dégâts")
-            adversaire.pointVie -= jetDegats
+    def magicDamage(self, ennemy, objet):
+        savingThrow = rollDice(20,ennemy.intelligence)
+        difficultyClass = 8 + modifier(self.intelligence)
+        if difficultyClass >= savingThrow:   
+            damageRoll = rollDice(self.spell.degat)
+            objet.set_text(f"You did {damageRoll} damage !")
+            ennemy.healthPoint -= damageRoll
         else:
             objet.set_text("miss")
 

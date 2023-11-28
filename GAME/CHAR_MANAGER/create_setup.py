@@ -4,8 +4,8 @@ from ttkbootstrap.dialogs import Messagebox
 import pickle
 import subprocess
 
-from CHAR_MANAGER.globals_setup import MAX_POINT
-from GAME.character.char_sheet import Personnage
+from GAME.CHAR_MANAGER.globals_setup import MAX_POINT
+from GAME.classes.char_sheet import Personnage
 
 
 class Create(ttk.Frame):
@@ -103,7 +103,7 @@ class Create(ttk.Frame):
             statCHA = int(self.charisma_entry.get())
             new_player = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
             
-            with open(f"GAME/personnage/{new_player.nom}.data", "wb") as fic:
+            with open(f"GAME/personnage/{new_player.name}.data", "wb") as fic:
                 record = pickle.Pickler(fic)
                 record.dump(new_player)
             

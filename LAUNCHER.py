@@ -1,4 +1,4 @@
-from CHAR_MANAGER.app_setup import App
+from GAME.CHAR_MANAGER.app_setup import App
 
 
 if __name__ == "__main__":

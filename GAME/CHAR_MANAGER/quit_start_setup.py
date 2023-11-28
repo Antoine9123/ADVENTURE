@@ -1,9 +1,9 @@
 from tkinter import ttk
 import subprocess
 
-from CHAR_MANAGER.globals_setup import WIDHT
-from CHAR_MANAGER.create_setup import Create
-from CHAR_MANAGER.continue_setup import Continue
+from GAME.CHAR_MANAGER.globals_setup import WIDHT
+from GAME.CHAR_MANAGER.create_setup import Create
+from GAME.CHAR_MANAGER.continue_setup import Continue
 
 
 ####    Main Frame               ---------------------------------------------------------------------------------------->

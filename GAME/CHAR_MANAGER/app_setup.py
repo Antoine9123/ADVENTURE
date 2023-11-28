@@ -2,8 +2,8 @@ import tkinter as tk
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 
-from CHAR_MANAGER.globals_setup import WIDHT, HEIGHT
-from CHAR_MANAGER.quit_start_setup import Main, Quit, Start
+from GAME.CHAR_MANAGER.globals_setup import WIDHT, HEIGHT
+from GAME.CHAR_MANAGER.quit_start_setup import Main, Quit, Start
 
 
 
@@ -22,7 +22,7 @@ class App(tk.Tk):
         self.geometry(f"{WIDHT}x{HEIGHT}+{x_coordinate}+{y_coordinate}")
 
         # Background
-        bg_image = tk.PhotoImage(file="CHAR_MANAGER/background.png")
+        bg_image = tk.PhotoImage(file="GAME/CHAR_MANAGER/background.png")
         bg_label = tk.Label(self, image=bg_image)
         bg_label.place(relwidth=1, relheight=1)
 

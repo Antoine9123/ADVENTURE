@@ -1,8 +1,10 @@
+import os
+import json
+import subprocess
+
 import tkinter as tk
 from tkinter import ttk
 from ttkbootstrap.dialogs import Messagebox
-import pickle
-import subprocess
 
 from GAME.CHAR_MANAGER.globals_setup import MAX_POINT
 from GAME.classes.char_sheet import Personnage
@@ -13,6 +15,7 @@ class Create(ttk.Frame):
         super().__init__(parent)
         self.place(x=10, y=90,relheight=0.7,relwidth=0.8) 
         self.create_widgets()
+        self.parent = parent
 
     def create_widgets(self):
         #### Create Button
@@ -38,8 +41,8 @@ class Create(ttk.Frame):
         self.dexterity_label = tk.Label(self, text="Dexterity:")
         self.dexterity_entry = tk.Entry(self, highlightthickness=0)
         
-        self.witness_label = tk.Label(self, text="Witness:")
-        self.witness_entry = tk.Entry(self, highlightthickness=0)
+        self.wisdom_label = tk.Label(self, text="Witness:")
+        self.wisdom_entry = tk.Entry(self, highlightthickness=0)
         
         self.intelligence_label = tk.Label(self, text="Intelligence:")
         self.intelligence_entry = tk.Entry(self, highlightthickness=0)
@@ -56,6 +59,8 @@ class Create(ttk.Frame):
         self.rowconfigure((10), weight=1, uniform='a',pad=2)
 
         #### Place Widgets
+        save_char.grid(row=0, rowspan=3, column=2,columnspan=3,  sticky='e')
+
         self.general_label.grid(row=0, column=0,columnspan=2,sticky="w")
 
         self.name_label.grid(row=1, column=1, sticky="w")
@@ -75,8 +80,8 @@ class Create(ttk.Frame):
         self.dexterity_label.grid(row=6, column=1, sticky="w")
         self.dexterity_entry.grid(row=6, column=2, sticky="w")
 
-        self.witness_label.grid(row=7, column=1, sticky="w")
-        self.witness_entry.grid(row=7, column=2, sticky="w")
+        self.wisdom_label.grid(row=7, column=1, sticky="w")
+        self.wisdom_entry.grid(row=7, column=2, sticky="w")
 
         self.intelligence_label.grid(row=8, column=1, sticky="w")
         self.intelligence_entry.grid(row=8, column=2, sticky="w")
@@ -84,7 +89,7 @@ class Create(ttk.Frame):
         self.charisma_label.grid(row=9, column=1, sticky="w")
         self.charisma_entry.grid(row=9, column=2, sticky="w")
 
-        save_char.grid(row=0, rowspan=3, column=2,columnspan=3,  sticky='e')
+        
 
     def save_new_personnage(self):
         #### Imposition des conditions
@@ -98,20 +103,34 @@ class Create(ttk.Frame):
             statSTR = int(self.strenght_entry.get())
             statCON = int(self.constitution_entry.get())
             statDEX = int(self.dexterity_entry.get())
-            statWIT = int(self.witness_entry.get())
+            statWIS = int(self.wisdom_entry.get())
             statINT = int(self.intelligence_entry.get())
             statCHA = int(self.charisma_entry.get())
-            new_player = Personnage(name, title, statSTR, statCON, statDEX, statWIT, statINT, statCHA,1)
+            level = 1
+
+            new_player = {
+                'name': name,
+                'title': title,
+                'statSTR': statSTR,
+                'statCON': statCON,
+                'statDEX': statDEX,
+                'statWIS': statWIS,
+                'statINT': statINT,
+                'statCHA': statCHA,
+                'level': level
+                }
+
+            file_path = f"GAME/personnage/{name}.json" 
+            os.makedirs(os.path.dirname(file_path), exist_ok=True) # Check if repertory exist. If not, create it !
+
+            player_json = json.dumps(new_player, indent=4)
+            with open(f"GAME/personnage/{name}.json", "w") as fic:
+                fic.write(player_json)
             
-            with open(f"GAME/personnage/{new_player.name}.data", "wb") as fic:
-                record = pickle.Pickler(fic)
-                record.dump(new_player)
+            with open(f"GAME/last_char.json", "w") as fic:
+                fic.write(player_json)
             
-            with open(f"GAME/last_char.data", "wb") as fic:
-                record = pickle.Pickler(fic)
-                record.dump(new_player)
-            
-            self.master.destroy()
+            self.parent.destroy()
             subprocess.run(["python", "LAUNCHER.py"])
 
     def show_error(self, message):
@@ -123,7 +142,7 @@ class Create(ttk.Frame):
             "Strength": int(self.strenght_entry.get()),
             "Constitution": int(self.constitution_entry.get()),
             "Dexterity": int(self.dexterity_entry.get()),
-            "Witness": int(self.witness_entry.get()),
+            "Wisdom": int(self.wisdom_entry.get()),
             "Intelligence": int(self.intelligence_entry.get()),
             "Charisma": int(self.charisma_entry.get()),
         }

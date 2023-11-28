@@ -30,7 +30,7 @@ class Start(ttk.Frame):
     
     def switch_to_game(self):
         self.master.destroy()
-        subprocess.run(["python", "GAME/main.py"])
+        subprocess.run(["python", "main.py"])
 
 ####    Quit Frame               ---------------------------------------------------------------------------------------->
 class Quit(ttk.Frame):

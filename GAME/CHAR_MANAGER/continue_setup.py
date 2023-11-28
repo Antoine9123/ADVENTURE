@@ -15,7 +15,7 @@ class Continue(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        folder_path = "GAME/personnage"
+        folder_path = "GAME/characters"
         fichiers = os.listdir(folder_path)
         file_names = [os.path.splitext(f)[0] for f in fichiers]
 
@@ -50,14 +50,14 @@ class Continue(ttk.Frame):
         intelligence_label = tk.Label(selected_main, text="Intelligence :")
         charisma_label = tk.Label(selected_main, text="Charisma :")
 
-        name = tk.Label(selected_main, text=player.nom)
-        title = tk.Label(selected_main, text=player.titre)
-        strenght = tk.Label(selected_main, text= player.force)
-        constitution = tk.Label(selected_main, text= player.constitution)
-        dexterity = tk.Label(selected_main, text= player.dexterite)
-        witness = tk.Label(selected_main, text=player.sagesse)
-        intelligence = tk.Label(selected_main, text=player.intelligence)
-        charisma = tk.Label(selected_main, text=player.charisme)
+        name = tk.Label(selected_main, text='player.nom') # -------------------------->>>>> TODO
+        title = tk.Label(selected_main, text='player.titre')
+        strenght = tk.Label(selected_main, text= 'player.force')
+        constitution = tk.Label(selected_main, text= 'player.constitution')
+        dexterity = tk.Label(selected_main, text= 'player.dexterite')
+        witness = tk.Label(selected_main, text='player.sagesse')
+        intelligence = tk.Label(selected_main, text='player.intelligence')
+        charisma = tk.Label(selected_main, text='player.charisme')
    
         #### Create Grid
         selected_main.columnconfigure(0, weight=1)
@@ -97,10 +97,11 @@ class Continue(ttk.Frame):
 
     
     def open_last(self):
-        with open(f"GAME/last_char.data", "rb") as fic:
-            get_record = pickle.Unpickler(fic)
-            last_player = get_record.load()
-            return last_player
+      #  with open(f"GAME/last_char.data", "rb") as fic:
+       #     get_record = pickle.Unpickler(fic)
+        #    last_player = get_record.load()
+         #   return last_player
+        return
         
     def select_action(self):
         try:

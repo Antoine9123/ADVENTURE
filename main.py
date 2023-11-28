@@ -1,8 +1,9 @@
 import pygame
 
 
-from screen.menu_start import MenuStart
-from screen.fight import Fight
+from GAME.screen.menu_start import MenuStart
+from GAME.screen.fight import Fight
+from GAME.classes.char_sheet import Personnage
 
 
 SCREENWIDTH, SCREENHEIGHT = 1280,720
@@ -33,6 +34,7 @@ class Game:
 
             pygame.display.update()
             self.clock.tick(FPS)
+    
 
 class GameStateManager:
     def __init__(self, currentState):
@@ -41,6 +43,7 @@ class GameStateManager:
         return self.currentState
     def set_state(self, state):
         self.currentState = state
+
 
 game = Game()
 game.run()

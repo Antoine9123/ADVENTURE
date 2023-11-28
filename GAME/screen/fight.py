@@ -1,10 +1,11 @@
 import pygame
 from pygame import mixer
 import sys
+import json
 
-from character.char_sheet import Personnage
-from screen.fight_menu import FightMenu
-from screen.fight_text import FightTxt
+from GAME.classes.char_sheet import Personnage
+from GAME.screen.fight_menu import FightMenu
+from GAME.screen.fight_text import FightTxt
 
 
 
@@ -17,7 +18,7 @@ class Fight:
         
         self.font = pygame.font.Font(None, 50)
         
-        self.player = Personnage("Student Special Forces","Le héros", 18,10,10,10,10,10,10)
+        self.player = self.load_player()
         self.ennemy = Personnage("Python, the Elder Dragon","L'ancien",10,10,10,10,10,10,100)
         
 
@@ -31,7 +32,21 @@ class Fight:
         mixer.music.load('GAME/sounds/battle.mp3')
         #mixer.music.play(-1)
 
-        
+    def load_player(self):
+        with open(f"GAME/last_char.json", "r") as f:
+            load_player = json.load(f)
+            name = load_player['name']
+            title = load_player['title']
+            strenght = load_player['statSTR']
+            constitution = load_player['statCON']
+            dexterity = load_player['statDEX']
+            wisdom = load_player['statWIS']
+            intelligence = load_player['statINT']
+            charisma = load_player['statCHA']
+            level = load_player['level']
+         
+        return Personnage(name, title, strenght, constitution,dexterity, wisdom, intelligence, charisma, level)   
+     
     def load_background(self):
         self.background = pygame.image.load('GAME/img/fight.png')
         self.background = pygame.transform.scale(self.background, (self.SCREENWIDTH, self.SCREENHEIGHT))
@@ -62,22 +77,22 @@ class Fight:
     
     def load_players_screen(self):
         
-        self.life_player = self.font.render(f'{self.player.nom} - HP :{self.player.pointVie}', True, (250, 250, 210))
-        self.mana_player = self.font.render(f'Mana :{self.player.mana}', True, (250, 250, 210))
+        self.life_player = self.font.render(f'{self.player.name} - HP :{self.player.healthPoint}', True, (250, 250, 210))
+        self.mana_player = self.font.render(f'Mana :{self.player.magicPoint}', True, (250, 250, 210))
         
-        self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
-        self.mana_ennemy = self.font.render(f'Mana :{self.ennemy.mana}', True, (250, 250, 210))
+        self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
+        self.mana_ennemy = self.font.render(f'Mana :{self.ennemy.magicPoint}', True, (250, 250, 210))
         
     
     def handle_click(self, mouse_pos, objet):
         if objet.atk_rect.collidepoint(mouse_pos):
-            self.player.attaquePhysique(self.ennemy,self.txtFight)
-            self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
+            self.player.attackDamage(self.ennemy,self.txtFight)
+            self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
             # self.ennemy.attaquePhysique(self.player,self.txtFight)
             # self.life_player = self.font.render(f'{self.player.nom} - HP :{self.player.pointVie}', True, (250, 250, 210))
         if objet.mgk_rect.collidepoint(mouse_pos):
-            self.player.attaqueMagique(self.ennemy,self.txtFight)
-            self.life_ennemy = self.font.render(f'{self.ennemy.nom} - HP :{self.ennemy.pointVie}', True, (250, 250, 210))
+            self.player.magicDamage(self.ennemy,self.txtFight)
+            self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
     
         
         

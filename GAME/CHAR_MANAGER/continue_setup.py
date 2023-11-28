@@ -51,7 +51,7 @@ class Continue(ttk.Frame):
             self.parent.destroy()
             subprocess.run(["python", "LAUNCHER.py"])
         except:
-            messagebox.showinfo("Alerte", "Ceci est un message d'alerte !")
+            messagebox.showinfo("Sorry, it wasn't possible to delete it !")
 
     def create_widgets(self):
         folder_path = "GAME/characters"
@@ -69,19 +69,19 @@ class Continue(ttk.Frame):
     def create_widgets_selected(self, player):
         #### Installation du cadre
         start_frame = ttk.Frame(self)
-        start_frame.place(x=10, y=30, height=150, width=500)
+        start_frame.place(x=10, y=30, height=140, width=500)
 
         character_selected_frame = ttk.LabelFrame(start_frame, text="  Character Selected  ")
         selected_main = ttk.Frame(character_selected_frame)
 
-        character_selected_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, pady=10)
+        character_selected_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, pady=5)
         selected_main.pack(fill="both", expand=True)
 
         start_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=20, padx= 20)  # Pack the start_frame only once
 
         #### Installation des labels
         name_label = tk.Label(selected_main, text="NAME :")
-        title_label = tk.Label(selected_main, text="lvl :")
+        level_label = tk.Label(selected_main, text="LEVEL :")
         strenght_label = tk.Label(selected_main, text="Strenght :")
         constitution_label = tk.Label(selected_main, text="Constitution :")
         dexterity_label = tk.Label(selected_main, text="Dexterity :")
@@ -90,13 +90,13 @@ class Continue(ttk.Frame):
         charisma_label = tk.Label(selected_main, text="Charisma :")
 
         name = tk.Label(selected_main, text=player.name) # -------------------------->>>>> TODO
-        title = tk.Label(selected_main, text='player.titre')
-        strenght = tk.Label(selected_main, text= 'player.force')
-        constitution = tk.Label(selected_main, text= 'player.constitution')
-        dexterity = tk.Label(selected_main, text= 'player.dexterite')
-        witness = tk.Label(selected_main, text='player.sagesse')
-        intelligence = tk.Label(selected_main, text='player.intelligence')
-        charisma = tk.Label(selected_main, text='player.charisme')
+        level = tk.Label(selected_main, text=player.level)
+        strenght = tk.Label(selected_main, text= player.strenght)
+        constitution = tk.Label(selected_main, text= player.constitution)
+        dexterity = tk.Label(selected_main, text= player.dexterity)
+        witness = tk.Label(selected_main, text=player.wisdom)
+        intelligence = tk.Label(selected_main, text=player.intelligence)
+        charisma = tk.Label(selected_main, text=player.charisma)
    
         #### Create Grid
         selected_main.columnconfigure(0, weight=1)
@@ -115,7 +115,7 @@ class Continue(ttk.Frame):
 
         #### Place Widgets
         name_label.grid(row=0, column=0, sticky="e", padx=(5, 0), pady=(5, 0))
-        title_label.grid(row=0, column=1, sticky="e", padx=(5, 0), pady=(5, 0))
+        level_label.grid(row=1, column=0, sticky="e", padx=(5, 0), pady=(5, 0))
 
         strenght_label.grid(row=2, column=2, sticky="e", padx=(5, 0), pady=(5, 0))
         constitution_label.grid(row=3, column=2, sticky="e", padx=(5, 0), pady=(5, 0))
@@ -125,7 +125,7 @@ class Continue(ttk.Frame):
         charisma_label.grid(row=4, column=3, sticky="e", padx=(5, 0), pady=(5, 0))
 
         name.grid(row=0, column=1, sticky="w", padx=(0, 5), pady=(5, 0))
-        title.grid(row=0, column=2, sticky="w", padx=(0, 5), pady=(5, 0))
+        level.grid(row=1, column=1, sticky="w", padx=(0, 5), pady=(5, 0))
 
         strenght.grid(row=2, column=3, sticky="w", padx=(0, 5), pady=(5, 0))
         constitution.grid(row=3, column=3, sticky="w", padx=(0, 5), pady=(5, 0))

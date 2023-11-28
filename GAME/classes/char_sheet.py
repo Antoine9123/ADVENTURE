@@ -32,7 +32,7 @@ class Personnage:
         
     def attackDamage(self, ennemy, objet):
         attackRoll = rollDice(20,self.strenght)
-        if attackRoll > ennemy.classeArmure:
+        if attackRoll > ennemy.armorClass:
             damageRoll = rollDice(self.weapon.degat,self.strenght)
             objet.set_text(f"{damageRoll} damage")
             ennemy.healthPoint -= damageRoll

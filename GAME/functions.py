@@ -8,8 +8,4 @@ def rollDice(nbrFace:int,relationStatistique=10):
 def modifier(stat):
         import math
         modificateurStat = math.floor((stat-10)/2)
-        return modificateurStat
-    
-    
-            
-            
+        return modificateurStat     

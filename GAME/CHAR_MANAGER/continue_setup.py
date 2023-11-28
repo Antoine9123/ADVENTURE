@@ -2,17 +2,56 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import os
-import pickle
+import json
 import subprocess
+
+from GAME.classes.char_sheet import Personnage
 
 
 class Continue(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.place(x=10, y=90, relheight=0.7, relwidth=0.8)
+        self.parent = parent
         self.player = self.open_last()
         self.create_widgets_selected(self.player)
         self.create_widgets()
+        
+
+        
+    def open_last(self):
+        with open(f"GAME/last_char.json", "r") as f:
+            load_player = json.load(f)
+            name = load_player['name']
+            title = load_player['title']
+            strenght = load_player['statSTR']
+            constitution = load_player['statCON']
+            dexterity = load_player['statDEX']
+            wisdom = load_player['statWIS']
+            intelligence = load_player['statINT']
+            charisma = load_player['statCHA']
+            level = load_player['level']
+         
+        return Personnage(name, title, strenght, constitution,dexterity, wisdom, intelligence, charisma, level) 
+        
+    def select_action(self):
+        selected_value = self.combobox.get()
+        with open(f"GAME/characters/{selected_value}.json", "r") as f:
+            load_player = json.load(f)
+        with open(f"GAME/last_char.json", "w") as fic:
+            json.dump(load_player, fic, indent=4)
+        self.parent.destroy()
+        subprocess.run(["python", "LAUNCHER.py"])
+
+
+    def delete_action(self):
+        selected_value = self.combobox.get()
+        try:
+            os.remove(f"GAME/characters/{selected_value}.json")
+            self.parent.destroy()
+            subprocess.run(["python", "LAUNCHER.py"])
+        except:
+            messagebox.showinfo("Alerte", "Ceci est un message d'alerte !")
 
     def create_widgets(self):
         folder_path = "GAME/characters"
@@ -50,7 +89,7 @@ class Continue(ttk.Frame):
         intelligence_label = tk.Label(selected_main, text="Intelligence :")
         charisma_label = tk.Label(selected_main, text="Charisma :")
 
-        name = tk.Label(selected_main, text='player.nom') # -------------------------->>>>> TODO
+        name = tk.Label(selected_main, text=player.name) # -------------------------->>>>> TODO
         title = tk.Label(selected_main, text='player.titre')
         strenght = tk.Label(selected_main, text= 'player.force')
         constitution = tk.Label(selected_main, text= 'player.constitution')
@@ -95,33 +134,4 @@ class Continue(ttk.Frame):
         intelligence.grid(row=3, column=4, sticky="w", padx=(0, 5), pady=(5, 0))
         charisma.grid(row=4, column=4, sticky="w", padx=(0, 5), pady=(5, 0))
 
-    
-    def open_last(self):
-      #  with open(f"GAME/last_char.data", "rb") as fic:
-       #     get_record = pickle.Unpickler(fic)
-        #    last_player = get_record.load()
-         #   return last_player
-        return
-        
-    def select_action(self):
-        try:
-            selected_value = self.combobox.get()
-            with open(f"GAME/personnage/{selected_value}.data", "rb") as fic:
-                get_record = pickle.Unpickler(fic)
-                selected_player = get_record.load()
-            with open("GAME/last_char.data", "wb") as fic:
-                record = pickle.Pickler(fic)
-                record.dump(selected_player)
-            self.master.destroy()
-            subprocess.run(["python", "LAUNCHER.py"])
-        except:
-            pass
 
-    def delete_action(self):
-        selected_value = self.combobox.get()
-        try:
-            os.remove(f"GAME/personnage/{selected_value}.data")
-            self.master.destroy()
-            subprocess.run(["python", "LAUNCHER.py"])
-        except:
-            messagebox.showinfo("Alerte", "Ceci est un message d'alerte !")

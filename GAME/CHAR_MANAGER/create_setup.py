@@ -4,7 +4,6 @@ import subprocess
 
 import tkinter as tk
 from tkinter import ttk
-import ttkbootstrap as tb
 from ttkbootstrap.dialogs import Messagebox
 
 from GAME.CHAR_MANAGER.globals_setup import MAX_POINT
@@ -20,9 +19,6 @@ class Create(ttk.Frame):
     def create_widgets(self):
         #### Create Button
         save_char  = ttk.Button(self, text= "Create", command=self.save_new_personnage)
-        #meter_stat = ttk.Progressbar(self)
-        #meter_stat.configure(maximum=MAX_POINT)
-        #meter_stat['value'] = int(self.strenght_entry.get()) + int(self.constitution_entry.get())+ int(self.dexterity_entry.get())+int(self.wisdom_entry.get())+ int(self.intelligence_entry.get())+ int(self.charisma_entry.get())
         
         #### Create Widgets
         self.general_label = tk.Label(self, text="GENERAL INFORMATION")    
@@ -64,7 +60,7 @@ class Create(ttk.Frame):
 
         #### Place Widgets
         save_char.grid(row=8,rowspan=9, column=3,  sticky='we')
-        #meter_stat.grid(row=6,rowspan=7, column=3,  sticky='we')
+    
 
         self.general_label.grid(row=0, column=0,columnspan=2,sticky="w")
 
@@ -125,11 +121,11 @@ class Create(ttk.Frame):
                 'level': level
                 }
 
-            file_path = f"GAME/personnage/{name}.json" 
+            file_path = f"GAME/characters/{name}.json" 
             os.makedirs(os.path.dirname(file_path), exist_ok=True) # Check if repertory exist. If not, create it !
 
             player_json = json.dumps(new_player, indent=4)
-            with open(f"GAME/personnage/{name}.json", "w") as fic:
+            with open(f"GAME/characters/{name}.json", "w") as fic:
                 fic.write(player_json)
             
             with open(f"GAME/last_char.json", "w") as fic:

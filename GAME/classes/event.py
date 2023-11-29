@@ -2,10 +2,10 @@ from time import time
   
 
 class EventManager:
-    def __init__(self, fight, txt) :
+    def __init__(self, fight) :
         self.events_queue = []
         self.fight = fight
-        self.txt = txt
+        
     
     def events_check(self):
         i = 0
@@ -13,8 +13,8 @@ class EventManager:
             current_time = time()
             if current_time >= self.events_queue[i]['time_to_trigger']:
                 print(self.events_queue[i]['name'])
-                self.fight.life_ennemy = self.fight.font.render(f'{self.fight.ennemy.name} - HP :{self.fight.ennemy.healthPoint}', True, (250, 250, 210))
-                self.txt.set_text(f"{self.events_queue[i]['name']}")
+                self.fight.load_players_screen()
+                self.fight.txtFight.set_text(f"{self.events_queue[i]['name']}")
                 self.fight.menuFight.display()
                 del self.events_queue[i]
             else:

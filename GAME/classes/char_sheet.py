@@ -39,7 +39,7 @@ class Personnage:
             ennemy.healthPoint -= damageRoll
             return damageRoll
         else:
-            return damageRoll
+            return 0
 
     
     def magicDamage(self, ennemy,text_displayed):

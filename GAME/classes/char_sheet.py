@@ -4,6 +4,7 @@ from GAME.functions import *
 from GAME.classes.weapons import Weapon
 from GAME.classes.armor import Armor
 from GAME.classes.spell import Spell
+#from GAME.classes.event import EventDelay
 
 class Personnage:
     def __init__(self, name, title, strenght, constitution, dexterity, wisdom, intelligence, charisma, level) :
@@ -40,16 +41,17 @@ class Personnage:
             objet.set_text("miss")
 
     
-    def magicDamage(self, ennemy, objet):
+    def magicDamage(self, ennemy):
         self.magicPoint -= self.spell.cout
         savingThrow = rollDice(20,ennemy.intelligence)
         difficultyClass = 8 + modifier(self.intelligence)
         if difficultyClass >= savingThrow:   
             damageRoll = rollDice(self.spell.degat)
-            objet.set_text(f"You did {damageRoll} damage !")
+            #text_displayed.set_text(f"You did {damageRoll} damage !")
             ennemy.healthPoint -= damageRoll
+            return damageRoll
         else:
-            objet.set_text("miss")
+            return 0
 
     
     def delay(self,milliseconds):

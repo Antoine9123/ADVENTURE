@@ -21,7 +21,7 @@ class Fight:
         self.font = pygame.font.Font(None, 50)
         
         self.player = self.load_player()
-        self.ennemy = Personnage("Python, the Dragon","L'ancien",20,10,10,10,10,10,2)
+        self.ennemy = Personnage("Python, the Dragon","L'ancien",20,10,10,10,10,10,1)
         
         self.load_background()
         self.load_players_screen()
@@ -96,15 +96,20 @@ class Fight:
     
     def handle_click(self, mouse_pos, objet):
         if objet.atk_rect.collidepoint(mouse_pos):
+            self.eventManager.add_event("WAIT !", 0)
             damage = self.player.attackDamage(self.ennemy,self.txtFight)
             self.eventManager.add_event(f"You did {str(damage)} damage to {self.ennemy.name}",1500)
             damage = self.ennemy.attackDamage(self.player,self.txtFight)
             self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} damage to you ",3000)
+            self.eventManager.add_event("What will you do next ?", 4500)
            
         if objet.mgk_rect.collidepoint(mouse_pos) and (self.player.magicPoint - self.player.spell.cout >= 0):
-            self.player.magicDamage(self.ennemy,self.txtFight)
-            self.mana_player = self.font.render(f'Mana :{self.player.magicPoint}', True, (250, 250, 210))
-            self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
+            damage = self.player.magicDamage(self.ennemy,self.txtFight)
+            self.eventManager.add_event("WAIT !", 0)
+            self.eventManager.add_event(f"You did {str(damage)} magic damage to {self.ennemy.name}",1500)
+            damage = self.ennemy.magicDamage(self.player,self.txtFight)
+            self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} magic damage to you ",3000)
+            self.eventManager.add_event("What will you do next ?", 4500)
         
         
         

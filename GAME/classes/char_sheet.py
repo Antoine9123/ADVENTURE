@@ -21,7 +21,7 @@ class Personnage:
         self.level = level
 
         self.weapon = Weapon("hand",6)
-        self.armor = Armor("casual",1)
+        self.armor = Armor("casual",2)
         self.spell = Spell("FireBall",10,1)
         
         self.healthPoint = (10*self.level)+ modifier(self.constitution)
@@ -35,7 +35,6 @@ class Personnage:
         attackRoll = rollDice(20,self.strenght)
         if attackRoll > ennemy.armorClass:
             damageRoll = rollDice(self.weapon.degat,self.strenght)
-            #objet.set_text(f"{damageRoll} damage")
             ennemy.healthPoint -= damageRoll
             return damageRoll
         else:

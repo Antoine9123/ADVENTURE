@@ -35,21 +35,22 @@ class Personnage:
         attackRoll = rollDice(20,self.strenght)
         if attackRoll > ennemy.armorClass:
             damageRoll = rollDice(self.weapon.degat,self.strenght)
-            objet.set_text(f"{damageRoll} damage")
+            #objet.set_text(f"{damageRoll} damage")
             ennemy.healthPoint -= damageRoll
+            return damageRoll
         else:
-            objet.set_text("miss")
+            return damageRoll
 
     
-    def magicDamage(self, ennemy):
+    def magicDamage(self, ennemy,text_displayed):
         self.magicPoint -= self.spell.cout
         savingThrow = rollDice(20,ennemy.intelligence)
         difficultyClass = 8 + modifier(self.intelligence)
         if difficultyClass >= savingThrow:   
             damageRoll = rollDice(self.spell.degat)
-            #text_displayed.set_text(f"You did {damageRoll} damage !")
+            text_displayed.set_text(f"You did {damageRoll} damage !")
             ennemy.healthPoint -= damageRoll
-            return damageRoll
+            
         else:
             return 0
 

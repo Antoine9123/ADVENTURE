@@ -1,12 +1,10 @@
 import pygame
 
-
 from GAME.screen.menu_start import MenuStart
 from GAME.screen.fight import Fight
 from GAME.screen.game_over import GameOver
 from GAME.screen.win import Win
-
-
+ 
 
 SCREENWIDTH, SCREENHEIGHT = 1280,720
 FPS = 144

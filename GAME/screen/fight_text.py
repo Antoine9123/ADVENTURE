@@ -4,7 +4,7 @@ import pygame
 class FightTxt:
     def __init__(self, parent):
         self.parent = parent
-        self.txt = "FIGHT !!!"
+        self.txt = 'Fight !'
         
     def display(self):
         self.txt_font = pygame.font.Font(None, 45)

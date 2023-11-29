@@ -41,6 +41,7 @@ class Personnage:
 
     
     def magicDamage(self, ennemy, objet):
+        self.magicPoint -= self.spell.cout
         savingThrow = rollDice(20,ennemy.intelligence)
         difficultyClass = 8 + modifier(self.intelligence)
         if difficultyClass >= savingThrow:   

@@ -3,7 +3,9 @@ import pygame
 
 from GAME.screen.menu_start import MenuStart
 from GAME.screen.fight import Fight
-from GAME.classes.char_sheet import Personnage
+from GAME.screen.game_over import GameOver
+from GAME.screen.win import Win
+
 
 
 SCREENWIDTH, SCREENHEIGHT = 1280,720
@@ -15,7 +17,6 @@ class Game:
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption("Adventure Game")
         
-
         #icon = pygame.image.load("img/icone.jpg")
         #pygame.display.set_icon(icon)
 
@@ -24,9 +25,16 @@ class Game:
         self.gameStateManager = GameStateManager('start')
         self.menuStart = MenuStart(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
         self.menuFight = Fight(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
+        self.menuGameOver = GameOver(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
+        self.menuWin = Win(self.screen, self.gameStateManager, SCREENWIDTH, SCREENHEIGHT)
 
 
-        self.states = {'start': self.menuStart, 'fight': self.menuFight}
+        self.states = {
+            'start': self.menuStart, 
+            'fight': self.menuFight,
+            'gameover' : self.menuGameOver,
+            'win' : self.menuWin,
+            }
 
     def run(self):
         while True:

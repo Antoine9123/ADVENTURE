@@ -1,7 +1,8 @@
-import pygame
-from pygame import mixer
 import sys
 import json
+import pygame
+from pygame import mixer
+
 
 from GAME.classes.char_sheet import Personnage
 from GAME.screen.fight_menu import FightMenu
@@ -19,14 +20,15 @@ class Fight:
         self.font = pygame.font.Font(None, 50)
         
         self.player = self.load_player()
-        self.ennemy = Personnage("Python, the Elder Dragon","L'ancien",10,10,10,10,10,10,100)
+        self.ennemy = Personnage("Python, the Elder Dragon","L'ancien",10,10,10,10,10,10,2)
         
-
         self.load_background()
         self.load_players_screen()
+        
         self.menuFight = FightMenu(self.display)
-        self.menuFight.display()
         self.txtFight = FightTxt(self.display)
+        
+        self.menuFight.display()
         self.txtFight.display()
         
         mixer.music.load('GAME/sounds/battle.mp3')
@@ -63,7 +65,11 @@ class Fight:
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: 
                 mouse_pos = pygame.mouse.get_pos()
                 self.handle_click(mouse_pos, self.menuFight)   
-        
+        if self.ennemy.healthPoint <= 0:
+            self.gameStateManager.set_state('win')
+        if self.player.healthPoint <= 0:
+            self.gameStateManager.set_state('gameover')
+            
         self.display.blit(self.background, (0, 0))
         self.display.blit(self.player_image, (-50,self.SCREENHEIGHT-300))
         self.display.blit(self.ennemy_image, (self.SCREENWIDTH -350,50))
@@ -73,6 +79,7 @@ class Fight:
         self.display.blit(self.mana_ennemy, (650, 90))
         self.menuFight.run()
         self.txtFight.run()
+        
 
     
     def load_players_screen(self):
@@ -88,12 +95,12 @@ class Fight:
         if objet.atk_rect.collidepoint(mouse_pos):
             self.player.attackDamage(self.ennemy,self.txtFight)
             self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
-            # self.ennemy.attaquePhysique(self.player,self.txtFight)
-            # self.life_player = self.font.render(f'{self.player.nom} - HP :{self.player.pointVie}', True, (250, 250, 210))
-        if objet.mgk_rect.collidepoint(mouse_pos):
+
+        if objet.mgk_rect.collidepoint(mouse_pos) and (self.player.magicPoint - self.player.spell.cout >= 0):
             self.player.magicDamage(self.ennemy,self.txtFight)
+            self.mana_player = self.font.render(f'Mana :{self.player.magicPoint}', True, (250, 250, 210))
             self.life_ennemy = self.font.render(f'{self.ennemy.name} - HP :{self.ennemy.healthPoint}', True, (250, 250, 210))
-    
+        
         
         
     

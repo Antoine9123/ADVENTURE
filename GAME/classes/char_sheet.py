@@ -9,7 +9,6 @@ from GAME.classes.spell import Spell
 class Personnage:
     def __init__(self, name, title, strenght, constitution, dexterity, wisdom, intelligence, charisma, level) :
         #Set de base ----------------------------------------------------->
-        self.clock = pygame.time.Clock()
         self.name = name
         self.title = title
         self.strenght = strenght
@@ -47,15 +46,10 @@ class Personnage:
         difficultyClass = 8 + modifier(self.intelligence)
         if difficultyClass >= savingThrow:   
             damageRoll = rollDice(self.spell.degat)
-            text_displayed.set_text(f"You did {damageRoll} damage !")
             ennemy.healthPoint -= damageRoll
             
         else:
             return 0
 
-    
-    def delay(self,milliseconds):
-        start_time = pygame.time.get_ticks()
-        while pygame.time.get_ticks() - start_time < milliseconds:
-            pygame.event.pump()
+
     

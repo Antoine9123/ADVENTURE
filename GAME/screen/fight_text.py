@@ -7,16 +7,16 @@ class FightTxt:
         self.txt = 'Fight !'
         
     def display(self):
-        self.txt_font = pygame.font.Font(None, 45)
-        self.txt_surface = self.txt_font.render(self.txt, True, ('red'))
+        self.txt_font = pygame.font.Font("GAME/font/Destroy.ttf", 45)
+        self.txt_surface = self.txt_font.render(self.txt, True, ('#800000'))
         
     
     def run(self):    
-            self.parent.blit(self.txt_surface, (500, 540))
+            self.parent.blit(self.txt_surface, (650, 600))
     
     def set_text(self,txt):
         self.txt = str(txt)
-        self.txt_surface = self.txt_font.render(self.txt, True, ('yellow'))
+        self.txt_surface = self.txt_font.render(self.txt, True, ('#800000'))
         
 
 

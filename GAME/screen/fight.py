@@ -18,10 +18,10 @@ class Fight:
         self.SCREENWIDTH = SCREENWIDTH
         self.SCREENHEIGHT = SCREENHEIGHT
         
-        self.font = pygame.font.Font(None, 50)
+        self.font = pygame.font.Font('GAME/font/Rumble.otf', 50)
         
         self.player = self.load_player()
-        self.ennemy = Personnage("Python, the Dragon","L'ancien",20,10,10,10,10,10,1)
+        self.ennemy = Personnage("Python","L'ancien",10,10,10,10,10,10,1)
         
         self.load_background()
         self.load_players_screen()
@@ -78,10 +78,10 @@ class Fight:
         self.display.blit(self.background, (0, 0))
         self.display.blit(self.player_image, (-50,self.SCREENHEIGHT-300))
         self.display.blit(self.ennemy_image, (self.SCREENWIDTH -350,50))
-        self.display.blit(self.life_player, (25, 360))
-        self.display.blit(self.mana_player, (25, 400))
-        self.display.blit(self.life_ennemy, (650, 50))
-        self.display.blit(self.mana_ennemy, (650, 90))
+        self.display.blit(self.life_player, (25, 320))
+        self.display.blit(self.mana_player, (75, 360))
+        self.display.blit(self.life_ennemy, (650, 30))
+        self.display.blit(self.mana_ennemy, (700, 70))
         
         self.menuFight.run()
         self.txtFight.run()
@@ -96,20 +96,20 @@ class Fight:
     
     def handle_click(self, mouse_pos, objet):
         if objet.atk_rect.collidepoint(mouse_pos):
-            self.eventManager.add_event("WAIT !", 0)
+            self.eventManager.add_event("WAIT !", 0, False)
             damage = self.player.attackDamage(self.ennemy,self.txtFight)
-            self.eventManager.add_event(f"You did {str(damage)} damage to {self.ennemy.name}",1500)
+            self.eventManager.add_event(f"You did {str(damage)} damage to {self.ennemy.name}",1500, True)
             damage = self.ennemy.attackDamage(self.player,self.txtFight)
-            self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} damage to you ",3000)
-            self.eventManager.add_event("What will you do next ?", 4500)
+            self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} damage to you ",3000, True)
+            self.eventManager.add_event("What will you do next ?", 4500, True)
            
         if objet.mgk_rect.collidepoint(mouse_pos) and (self.player.magicPoint - self.player.spell.cout >= 0):
+            self.eventManager.add_event("WAIT !", 0, False)
             damage = self.player.magicDamage(self.ennemy,self.txtFight)
-            self.eventManager.add_event("WAIT !", 0)
-            self.eventManager.add_event(f"You did {str(damage)} magic damage to {self.ennemy.name}",1500)
+            self.eventManager.add_event(f"You did {str(damage)} magic damage to {self.ennemy.name}",1500, True)
             damage = self.ennemy.magicDamage(self.player,self.txtFight)
-            self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} magic damage to you ",3000)
-            self.eventManager.add_event("What will you do next ?", 4500)
+            self.eventManager.add_event(f"{self.ennemy.name} did {str(damage)} magic damage to you ",3000, True)
+            self.eventManager.add_event("What will you do next ?", 4500, True)
         
         
         
